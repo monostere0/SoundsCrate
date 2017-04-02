@@ -42,7 +42,7 @@ export default class Record extends Component {
     const translateY = this.animatedTranslateY;
     const rotateX = this.animatedRotateX.interpolate({
       inputRange: [ROTATE_X_DEFAULT_VALUE, -1],
-      outputRange: ['-30deg', '-50deg'],
+      outputRange: ['-30deg', '-40deg'],
       extrapolate: 'clamp'
     });
     const transform = {

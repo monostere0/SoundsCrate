@@ -1,5 +1,5 @@
 import { AppRegistry } from 'react-native';
 
-import Crater from './app/components/Crater';
+import Crate from './app/components/Crate';
 
-AppRegistry.registerComponent('SoundsCrater', () => Crater);
+AppRegistry.registerComponent('SoundsCrater', () => Crate);

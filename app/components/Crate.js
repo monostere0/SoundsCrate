@@ -11,7 +11,7 @@ const RECORD_TOP_SPACE = 70;
 const FIRST_RECORD_TOP_SPACE = 10;
 const SCROLL_THRESHOLD_MARGIN = 100;
 
-export default class Crater extends Component {
+export default class Crate extends Component {
   panResponder;
   state = {
     scrollDirection: 'top',

@@ -13,7 +13,7 @@ const RECORD_HEIGHT_SPACE = 80;
 const RECORD_TOP_SPACE = 70;
 const FIRST_RECORD_TOP_SPACE = 10;
 const SCROLL_THRESHOLD_MARGIN = 100;
-const RECORD_SCROLL_DIFF_THRESHOLD = 160;
+const RECORD_SCROLL_DIFF_THRESHOLD = 162;
 
 type State = {
   scrollDirection: string,
@@ -22,6 +22,17 @@ type State = {
 };
 
 export default class Crate extends Component {
+  static navigationOptions = {
+    tabBar: {
+      label: 'My Records',
+      // icon: ({ tintColor }) => (
+      //   <Image
+      //     source={require('./notif-icon.png')}
+      //     style={[styles.icon, {tintColor: tintColor}]}
+      //   />
+      // ),
+    },
+  };
   state: State = {
     scrollDirection: 'top',
     records: [],

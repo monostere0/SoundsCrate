@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from 'react';
 import {
   Animated,
@@ -6,27 +7,45 @@ import {
   TouchableHighlight,
   StyleSheet,
 } from 'react-native';
+import constants from '../constants';
 
 const RECORD_WIDTH = Dimensions.get('window').width - 20;
 const Y_DEFAULT_VALUE = 0;
 const Y_ANIMATED_VALUE = -220;
 const PERSPECTIVE_DEFAULT_VALUE = 1000;
 const PERSPECTIVE_ANIMATED_VALUE = 10000;
-const ANIMATION_DURATION = 300;
+export const ANIMATION_DURATION = 300;
 const ROTATE_X_DEFAULT_VALUE = -60;
 const ROTATE_X_ANIMATED_VALUE = 0;
 
+type Props = {
+  onShow: () => void,
+  onHide: () => void,
+  canBeShown: boolean,
+  scrollDirection: string,
+  cover: string,
+  isLast: boolean,
+  key: number,
+  style: any,
+};
+
+type State = {
+  transform: Array<Object>,
+  currentDirection: string,
+  isShown: boolean,
+};
+
 export default class Record extends Component {
-  animatedPerspective = new Animated.Value(1000);
-  animatedRotateX = new Animated.Value(-1);
-  animatedTranslateY = new Animated.Value(0);
-  state = {
+  animatedPerspective: Animated.Value = new Animated.Value(1000);
+  animatedRotateX: Animated.Value = new Animated.Value(-1);
+  animatedTranslateY: Animated.Value = new Animated.Value(0);
+  state: State = {
     transform: [],
     currentDirection: '',
     isShown: false,
   };
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     this._animateRotateX(
       nextProps.scrollDirection === 'top' ?
       ROTATE_X_ANIMATED_VALUE : ROTATE_X_DEFAULT_VALUE
@@ -66,17 +85,17 @@ export default class Record extends Component {
       </AnimatedTouchableOpacity>);
   }
 
-  onPress() {
+  onPress(): void {
     if (this.props.canBeShown) {
       this._show();
     }
   }
 
-  _animateRotateX(value) {
+  _animateRotateX(value): void {
     this._getXAnimation(value).start();
   }
 
-  _getYAnimation(toValue) {
+  _getYAnimation(toValue: number): Animated.Value {
     return this.props.isLast ?
       Animated.delay(0) :
       Animated.spring(
@@ -85,21 +104,21 @@ export default class Record extends Component {
       );
   }
 
-  _getXAnimation(toValue) {
+  _getXAnimation(toValue: number): Animated.Value {
     return Animated.spring(
       this.animatedRotateX,
       { toValue, duration: ANIMATION_DURATION },
     );
   }
 
-  _getPerspectiveAnimation(toValue) {
+  _getPerspectiveAnimation(toValue: number): Animated.Value {
     return Animated.spring(
       this.animatedPerspective,
       { toValue, duration: ANIMATION_DURATION },
     )
   }
 
-  _show() {
+  _show(): void {
     this.props.onShow();
     this.setState({ isShown: true });
     Animated.parallel([
@@ -108,7 +127,7 @@ export default class Record extends Component {
     ]).start(() => this._hide());
   }
 
-  _hide() {
+  _hide(): void {
     this.props.onHide();
     Animated.parallel([
       this._getYAnimation(Y_DEFAULT_VALUE),
@@ -129,7 +148,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
     width: Dimensions.get('window').width - 50,
     height: 300,
-    backgroundColor: '#ccc',
+    backgroundColor: constants.recordBackgroundColor,
     transform: [{
       perspective: 1000,
     }],

@@ -1,3 +1,4 @@
+/* @flow */
 import { AppRegistry } from 'react-native';
 
 import Crate from './app/components/Crate';

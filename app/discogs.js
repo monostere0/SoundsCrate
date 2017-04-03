@@ -1,4 +1,5 @@
-const records = [
+/* @flow */
+const records: Array<string> = [
   'https://img.discogs.com/esnpjUuNUm0ZC6Vt5lZJ-I4dW9w=/fit-in/500x500/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-1753053-1243981022.jpeg.jpg',
   'https://img.discogs.com/vtaFuo4LrHAUbwUblUaVFZh9Da0=/fit-in/596x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-3842693-1346574571-9805.jpeg.jpg',
   'https://img.discogs.com/n6npBN1pU2z7xe6auTnlsU5e-KM=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-9296607-1479032194-2661.jpeg.jpg',
@@ -17,6 +18,6 @@ const records = [
   'https://img.discogs.com/4kGbgmvIuVDwCqTDY6-8Be_kpO8=/fit-in/450x449/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-5032062-1382639782-6810.jpeg.jpg',
 ];
 
-export function getRecords() {
+export function getRecords(): Promise<any> {
   return Promise.resolve(records);
 }

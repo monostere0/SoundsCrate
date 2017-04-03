@@ -2,12 +2,14 @@
 import React, { Component } from 'react';
 import {
   Dimensions,
+  Image,
   ScrollView,
   StyleSheet,
 } from 'react-native';
 import Record, { ANIMATION_DURATION } from './Record';
 import { getRecords } from '../discogs';
 import constants from '../constants';
+import record from './assets/record.png';
 
 const RECORD_HEIGHT_SPACE = 80;
 const RECORD_TOP_SPACE = 70;
@@ -25,12 +27,12 @@ export default class Crate extends Component {
   static navigationOptions = {
     tabBar: {
       label: 'My Records',
-      // icon: ({ tintColor }) => (
-      //   <Image
-      //     source={require('./notif-icon.png')}
-      //     style={[styles.icon, {tintColor: tintColor}]}
-      //   />
-      // ),
+      icon: ({ tintColor }) => (
+        <Image
+          source={record}
+          style={[styles.icon]}
+        />
+      ),
     },
   };
   state: State = {
@@ -109,4 +111,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: constants.appBackgroundColor,
   },
+  icon: {
+    width: 32,
+    height: 32,
+  }
 })

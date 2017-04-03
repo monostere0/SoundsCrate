@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import constants from '../constants';
 
-const RECORD_WIDTH = Dimensions.get('window').width - 20;
+const RECORD_WIDTH = Dimensions.get('window').width - 50;
 const Y_DEFAULT_VALUE = 0;
 const Y_ANIMATED_VALUE = -220;
 const PERSPECTIVE_DEFAULT_VALUE = 1000;
@@ -146,12 +146,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'stretch',
     marginHorizontal: 25,
-    width: Dimensions.get('window').width - 50,
+    width: RECORD_WIDTH,
     height: 300,
     backgroundColor: constants.recordBackgroundColor,
-    transform: [{
-      perspective: 1000,
-    }],
+    transform: [{ perspective: 1000 }],
     shadowOpacity: 0.3,
     shadowColor: 'black',
   },

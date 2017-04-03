@@ -17,16 +17,19 @@ const PERSPECTIVE_ANIMATED_VALUE = 10000;
 export const ANIMATION_DURATION = 300;
 const ROTATE_X_DEFAULT_VALUE = -60;
 const ROTATE_X_ANIMATED_VALUE = 0;
+const PERSPECTIVE_MULTIPLY_FACTOR = 10;
+const MIN_PERSPECTIVE_VALUE = 120;
 
 type Props = {
   onShow: () => void,
   onHide: () => void,
   canBeShown: boolean,
-  scrollDirection: string,
   cover: string,
   isLast: boolean,
   key: number,
   style: any,
+  listYPosition: number,
+  maxYPosition: number,
 };
 
 type State = {
@@ -46,10 +49,7 @@ export default class Record extends Component {
   };
 
   componentWillReceiveProps(nextProps: Props) {
-    this._animateRotateX(
-      nextProps.scrollDirection === 'top' ?
-      ROTATE_X_ANIMATED_VALUE : ROTATE_X_DEFAULT_VALUE
-    );
+    this._animateRotateX(nextProps.listYPosition);
   }
 
   componentDidMount() {
@@ -60,8 +60,8 @@ export default class Record extends Component {
     const perspective = this.animatedPerspective;
     const translateY = this.animatedTranslateY;
     const rotateX = this.animatedRotateX.interpolate({
-      inputRange: [ROTATE_X_DEFAULT_VALUE, -1],
-      outputRange: ['-30deg', '-40deg'],
+      inputRange: [0, this.props.maxYPosition],
+      outputRange: ['-60deg', '-10deg'],
       extrapolate: 'clamp'
     });
     const transform = {
@@ -96,12 +96,10 @@ export default class Record extends Component {
   }
 
   _getYAnimation(toValue: number): Animated.Value {
-    return this.props.isLast ?
-      Animated.delay(0) :
-      Animated.spring(
-        this.animatedTranslateY,
-        { toValue, duration: ANIMATION_DURATION },
-      );
+    return Animated.spring(
+      this.animatedTranslateY,
+      { toValue, duration: ANIMATION_DURATION },
+    );
   }
 
   _getXAnimation(toValue: number): Animated.Value {
@@ -120,10 +118,12 @@ export default class Record extends Component {
 
   _show(): void {
     this.props.onShow();
+    const multipledTop = Math.max(this.props.style.top, MIN_PERSPECTIVE_VALUE) * PERSPECTIVE_MULTIPLY_FACTOR;
+    const perspectiveValue = Math.min(multipledTop, PERSPECTIVE_ANIMATED_VALUE);
     this.setState({ isShown: true });
     Animated.parallel([
-      this._getYAnimation(Y_ANIMATED_VALUE),
-      this._getPerspectiveAnimation(PERSPECTIVE_ANIMATED_VALUE),
+      this._getYAnimation(Y_ANIMATED_VALUE / (this.props.isLast ? 2 : 1)),
+      this._getPerspectiveAnimation(perspectiveValue),
     ]).start(() => this._hide());
   }
 

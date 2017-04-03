@@ -21,6 +21,7 @@ type State = {
   scrollDirection: string,
   records: [],
   recordShown: boolean,
+  yPosition: number,
 };
 
 export default class Crate extends Component {
@@ -39,6 +40,7 @@ export default class Crate extends Component {
     scrollDirection: 'top',
     records: [],
     recordShown: false,
+    yPosition: 0,
   };
   currentY: number = 0;
   scrollViewRef: ScrollView = null;
@@ -65,7 +67,8 @@ export default class Crate extends Component {
             onShow={() => this.onRecordShow(top)}
             onHide={() => this.onRecordHide()}
             canBeShown={!this.state.recordShown}
-            scrollDirection={this.state.scrollDirection}
+            listYPosition={this.state.yPosition}
+            maxYPosition={height}
             cover={image}
             isLast={i === records.length - 1}
             key={i}
@@ -77,21 +80,21 @@ export default class Crate extends Component {
 
   onScroll(event: any): void {
     const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
-    const { y } = contentOffset;
+    const { y: yPosition } = contentOffset;
     const maxScrollHeight = contentSize.height - layoutMeasurement.height;
-    const isTopDirection = y <= maxScrollHeight / 2;
-    const isBottomDirection = y >= maxScrollHeight / 2;
-    this.currentY = y;
-    if (isTopDirection || isBottomDirection) {
-      this.setState({ scrollDirection: isTopDirection ? 'top' : 'bottom' });
-    }
+    const isTopDirection = yPosition <= maxScrollHeight / 2;
+    const isBottomDirection = yPosition >= maxScrollHeight / 2;
+    //if (isTopDirection || isBottomDirection) {
+      this.setState({ yPosition });
+    //}
   }
 
   onRecordShow(topValue: number): void {
-    const scrollTopDiff = (topValue - RECORD_SCROLL_DIFF_THRESHOLD) - this.currentY;
+    const { yPosition } = this.state;
+    const scrollTopDiff = (topValue - RECORD_SCROLL_DIFF_THRESHOLD) - yPosition;
     if (scrollTopDiff < 0) {
       setTimeout(() => {
-        this.scrollViewRef.scrollTo({ y: this.currentY + scrollTopDiff, animated: true });
+        this.scrollViewRef.scrollTo({ y: yPosition + scrollTopDiff, animated: true });
       }, ANIMATION_DURATION);
     }
     this.setState({ recordShown: true });
@@ -112,7 +115,7 @@ const styles = StyleSheet.create({
     backgroundColor: constants.appBackgroundColor,
   },
   icon: {
-    width: 32,
-    height: 32,
+    width: 30,
+    height: 30,
   }
 })

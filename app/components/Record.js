@@ -64,17 +64,15 @@ export default class Record extends Component {
       outputRange: ['-60deg', '-10deg'],
       extrapolate: 'clamp'
     });
-    const transform = {
-      transform: [
-        { perspective },
-        { rotateX },
-        { translateY }
-      ],
-    };
+    const transformProps = [
+      { perspective },
+      { rotateX },
+      { translateY }
+    ];
     return (<AnimatedTouchableOpacity
         style={[styles.record,
           this.props.style,
-          transform,
+          { transform: transformProps },
         ]}
         onPress={() => this.onPress()}>
           <Image
@@ -87,7 +85,7 @@ export default class Record extends Component {
 
   onPress(): void {
     if (this.props.canBeShown) {
-      this._show();
+      this._show(() => this._hide());
     }
   }
 
@@ -98,25 +96,37 @@ export default class Record extends Component {
   _getYAnimation(toValue: number): Animated.Value {
     return Animated.spring(
       this.animatedTranslateY,
-      { toValue, duration: ANIMATION_DURATION },
+      {
+        toValue,
+        duration: ANIMATION_DURATION,
+        useNativeDriver: true,
+      },
     );
   }
 
   _getXAnimation(toValue: number): Animated.Value {
     return Animated.spring(
       this.animatedRotateX,
-      { toValue, duration: ANIMATION_DURATION },
+      {
+        toValue,
+        duration: ANIMATION_DURATION,
+        useNativeDriver: true,
+      },
     );
   }
 
   _getPerspectiveAnimation(toValue: number): Animated.Value {
     return Animated.spring(
       this.animatedPerspective,
-      { toValue, duration: ANIMATION_DURATION },
+      {
+        toValue,
+        duration: ANIMATION_DURATION,
+        useNativeDriver: true,
+      },
     )
   }
 
-  _show(): void {
+  _show(callback?: () => void): void {
     this.props.onShow();
     const multipledTop = Math.max(this.props.style.top, MIN_PERSPECTIVE_VALUE) * PERSPECTIVE_MULTIPLY_FACTOR;
     const perspectiveValue = Math.min(multipledTop, PERSPECTIVE_ANIMATED_VALUE);
@@ -124,7 +134,7 @@ export default class Record extends Component {
     Animated.parallel([
       this._getYAnimation(Y_ANIMATED_VALUE / (this.props.isLast ? 2 : 1)),
       this._getPerspectiveAnimation(perspectiveValue),
-    ]).start(() => this._hide());
+    ]).start(() => callback && callback());
   }
 
   _hide(): void {

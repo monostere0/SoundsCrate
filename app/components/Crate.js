@@ -5,11 +5,16 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
 } from 'react-native';
 import Record, { ANIMATION_DURATION } from './Record';
 import { getRecords } from '../discogs';
 import constants from '../constants';
 import record from './assets/record.png';
+import { secureFetch } from '../lib/oauth';
+import _ from 'lodash';
 
 const RECORD_HEIGHT_SPACE = 80;
 const RECORD_TOP_SPACE = 70;
@@ -46,8 +51,36 @@ export default class Crate extends Component {
   scrollViewRef: ScrollView = null;
 
   componentDidMount() {
-    getRecords()
-      .then(records => this.setState({ records }));
+    getCollectionPage(1)
+      .then(response => {
+        this.setState({ records: response.covers });
+        if (response.pages > 1) {
+          let totalPages = response.pages;
+          while (totalPages > 1) {
+            getCollectionPage(totalPages--)
+              .then(response => {
+                const additionalCovers: [] = response.covers;
+                this.setState({
+                  // $FlowFixMe
+                  records: this.state.records.concat(additionalCovers)
+                });
+              });
+          }
+        }
+      });
+
+    function getCollectionPage(pageNumber) {
+      return new Promise((resolve, reject) => {
+        return secureFetch('https://api.discogs.com/users/leudanielm/collection?per_page=100&page={pageNumber}')
+          .then(resp => {
+            resp.json().then(json => {
+              const pages: number = json.pagination.pages;
+              const covers: [] = _.map(json.releases, release => release.basic_information.thumb);
+              resolve({ pages, covers });
+            }, reject);
+          }, reject);
+      });
+    }
   }
 
   render() {
@@ -55,7 +88,7 @@ export default class Crate extends Component {
     const height = records.length * RECORD_HEIGHT_SPACE;
     return (
       <ScrollView
-        style={[styles.root, { height }]}
+        style={[styles.crate, { height }]}
         onScroll={event => this.onScroll(event)}
         ref={ref => this.scrollViewRef = ref}
         scrollEventThrottle={10}

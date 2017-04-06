@@ -2,19 +2,26 @@
 import conf from '../conf';
 import qs from 'query-string';
 import _ from 'lodash';
-import { Linking } from 'react-native';
+import { AsyncStorage, Linking } from 'react-native';
 
 type OAuthData = { oauth_token: string, oauth_token_secret: string };
 
 let storedTokenSecret: ?string = null;
 let storedOAuthData: OAuthData = { oauth_token: '', oauth_token_secret: '' };
 
+const STORAGE_APP_ID = '@SoundsCrater:';
+
 export function secureFetch(url: string, config: Object = {}): Promise<*> {
-  if (storedOAuthData.oauth_token) {
-    return oAuthFetch(url, config);
-  } else {
-    return startOAuthFlow().then(() => oAuthFetch(url, config));
-  }
+  return AsyncStorage.getItem(`${STORAGE_APP_ID}oauthToken`)
+    .then(data => {
+      const oauthToken = JSON.parse(data);
+      if (oauthToken && oauthToken.oauth_token) {
+        storedOAuthData = oauthToken;
+        return oAuthFetch(url, config);
+      } else {
+        return startOAuthFlow().then(() => oAuthFetch(url, config));
+      }
+    });
 }
 
 function oAuthFetch(url: string, config: Object = {}): Promise<*> {
@@ -76,6 +83,7 @@ function authorizeAndStoreToken(token: string, verifier: string): Promise<*> {
     .then(() => accessToken(token, verifier))
     .then(response => {
       storedOAuthData = response;
+      return AsyncStorage.setItem(`${STORAGE_APP_ID}oauthToken`, JSON.stringify(response));
     });
 }
 

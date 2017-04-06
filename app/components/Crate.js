@@ -16,7 +16,7 @@ import record from './assets/record.png';
 import { secureFetch } from '../lib/oauth';
 import _ from 'lodash';
 
-const RECORD_HEIGHT_SPACE = 80;
+const RECORD_HEIGHT_SPACE = 77;
 const RECORD_TOP_SPACE = 70;
 const FIRST_RECORD_TOP_SPACE = 10;
 const SCROLL_THRESHOLD_MARGIN = 100;
@@ -53,30 +53,50 @@ export default class Crate extends Component {
   componentDidMount() {
     getCollectionPage(1)
       .then(response => {
-        this.setState({ records: response.covers });
-        if (response.pages > 1) {
-          let totalPages = response.pages;
-          while (totalPages > 1) {
-            getCollectionPage(totalPages--)
-              .then(response => {
-                const additionalCovers: [] = response.covers;
-                this.setState({
-                  // $FlowFixMe
-                  records: this.state.records.concat(additionalCovers)
-                });
+        const allReleasesPromise = response.releases
+        .filter(release => {
+          const { basic_information: { formats } } = release;
+          return formats && formats.some(format => format.name === 'Vinyl');
+        })
+        .map(release => secureFetch(release.basic_information.resource_url));
+        Promise.all(allReleasesPromise)
+          .then(response => {
+            Promise.all(response.map(resp => resp.json()))
+              .then(releases => {
+                const records = _.map(releases, release => _.get(_.first(release.images), 'resource_url'));
+                this.setState({ records });
+
+                getCollectionPage(2)
+                  .then(response => {
+                    const allReleasesPromise = response.releases
+                    .filter(release => {
+                      const { basic_information: { formats } } = release;
+                      return formats && formats.some(format => format.name === 'Vinyl');
+                    })
+                    .map(release => secureFetch(release.basic_information.resource_url));
+                    Promise.all(allReleasesPromise)
+                      .then(response => {
+                        Promise.all(response.map(resp => resp.json()))
+                          .then(releases => {
+                            const records = _.map(releases, release => _.get(_.first(release.images), 'resource_url'));
+                            // $FlowFixMe
+                            this.setState({ records: this.state.records.concat(records) });
+                          });
+                      });
+                  });
+
               });
-          }
-        }
+          });
       });
+
 
     function getCollectionPage(pageNumber) {
       return new Promise((resolve, reject) => {
-        return secureFetch('https://api.discogs.com/users/leudanielm/collection?per_page=100&page={pageNumber}')
+        return secureFetch(`https://api.discogs.com/users/leudanielm/collection?per_page=100&page=${pageNumber}`)
           .then(resp => {
             resp.json().then(json => {
-              const pages: number = json.pagination.pages;
-              const covers: [] = _.map(json.releases, release => release.basic_information.thumb);
-              resolve({ pages, covers });
+              const { releases, pagination: { pages } } = json;
+              resolve({ pages, releases });
             }, reject);
           }, reject);
       });

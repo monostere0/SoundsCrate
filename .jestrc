@@ -1,0 +1,18 @@
+{
+  "modulePathIgnorePatterns": [
+    "/node_modules/"
+  ],
+  "persistModuleRegistryBetweenSpecs": true,
+  "preprocessorIgnorePatterns": [
+    "/node_modules/"
+  ],
+  "rootDir": "",
+  "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+  "testPathDirs": [
+    "<rootDir>/app"
+  ],
+  "unmockedModulePathPatterns": [
+    "<rootDir>/node_modules/",
+    "<rootDir>/src/"
+  ]
+}

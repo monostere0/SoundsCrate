@@ -19,7 +19,9 @@ export function secureFetch(url: string, config: Object = {}): Promise<*> {
         storedOAuthData = oauthToken;
         return oAuthFetch(url, config);
       } else {
-        return startOAuthFlow().then(() => oAuthFetch(url, config));
+        return startOAuthFlow().then(() => {
+          return oAuthFetch(url, config);
+        });
       }
     });
 }

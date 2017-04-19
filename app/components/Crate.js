@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import Record, { ANIMATION_DURATION } from './Record';
-import { getRecords } from '../discogs';
+import { getRecordsPage } from '../discogs';
 import constants from '../constants';
 import record from './assets/record.png';
 import { secureFetch } from '../lib/oauth';
@@ -50,57 +50,9 @@ export default class Crate extends Component {
   currentY: number = 0;
   scrollViewRef: ScrollView = null;
 
-  componentDidMount() {
-    getCollectionPage(1)
-      .then(response => {
-        const allReleasesPromise = response.releases
-        .filter(release => {
-          const { basic_information: { formats } } = release;
-          return formats && formats.some(format => format.name === 'Vinyl');
-        })
-        .map(release => secureFetch(release.basic_information.resource_url));
-        Promise.all(allReleasesPromise)
-          .then(response => {
-            Promise.all(response.map(resp => resp.json()))
-              .then(releases => {
-                const records = _.map(releases, release => _.get(_.first(release.images), 'resource_url'));
-                this.setState({ records });
-
-                getCollectionPage(2)
-                  .then(response => {
-                    const allReleasesPromise = response.releases
-                    .filter(release => {
-                      const { basic_information: { formats } } = release;
-                      return formats && formats.some(format => format.name === 'Vinyl');
-                    })
-                    .map(release => secureFetch(release.basic_information.resource_url));
-                    Promise.all(allReleasesPromise)
-                      .then(response => {
-                        Promise.all(response.map(resp => resp.json()))
-                          .then(releases => {
-                            const records = _.map(releases, release => _.get(_.first(release.images), 'resource_url'));
-                            // $FlowFixMe
-                            this.setState({ records: this.state.records.concat(records) });
-                          });
-                      });
-                  });
-
-              });
-          });
-      });
-
-
-    function getCollectionPage(pageNumber) {
-      return new Promise((resolve, reject) => {
-        return secureFetch(`https://api.discogs.com/users/leudanielm/collection?per_page=100&page=${pageNumber}`)
-          .then(resp => {
-            resp.json().then(json => {
-              const { releases, pagination: { pages } } = json;
-              resolve({ pages, releases });
-            }, reject);
-          }, reject);
-      });
-    }
+  async componentDidMount() {
+    const records = await getRecordsPage(1);
+    this.setState({ records });
   }
 
   render() {

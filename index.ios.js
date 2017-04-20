@@ -2,10 +2,10 @@
 import { AppRegistry } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 
-import Crate from './app/components/Crate';
+import CrateContainer from './app/components/CrateContainer';
 
 const SoundsCraterApp = TabNavigator({
-  Crate: { screen: Crate },
+  Crate: { screen: CrateContainer },
 });
 
 AppRegistry.registerComponent('SoundsCrater', () => SoundsCraterApp);

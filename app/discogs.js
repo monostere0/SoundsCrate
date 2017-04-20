@@ -3,8 +3,13 @@ import { secureFetch } from './lib/oauth';
 import conf from './conf';
 import qs from 'query-string';
 
-export async function getRecordsPage(pageNumber: number): Promise<string[]> {
-  const { releases } = await getCollectionPage(pageNumber);
+type RecordsPage = {
+  totalPages: number,
+  records: Array<string>,
+}
+
+export async function getRecordsPage(pageNumber: number): Promise<RecordsPage> {
+  const { totalPages, releases } = await getCollectionPage(pageNumber);
   const releasesRequests = releases
     .filter(release => {
       const { basic_information: { formats } } = release;
@@ -14,7 +19,8 @@ export async function getRecordsPage(pageNumber: number): Promise<string[]> {
    const releasesResponse = await Promise.all(releasesRequests);
    const releasesJson = await Promise.all(releasesResponse.map(getJson));
    const records = releasesJson.map(release => release.images.length && release.images[0].resource_url);
-   return records;
+
+   return { totalPages, records };
 }
 
 async function getCollectionPage(pageNumber: number): Promise<*> {

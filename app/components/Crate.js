@@ -10,10 +10,7 @@ import {
   View,
 } from 'react-native';
 import Record, { ANIMATION_DURATION } from './Record';
-import { getRecordsPage } from '../discogs';
 import constants from '../constants';
-import record from './assets/record.png';
-import { secureFetch } from '../lib/oauth';
 import _ from 'lodash';
 
 const RECORD_HEIGHT_SPACE = 77;
@@ -22,25 +19,18 @@ const FIRST_RECORD_TOP_SPACE = 10;
 const SCROLL_THRESHOLD_MARGIN = 100;
 const RECORD_SCROLL_DIFF_THRESHOLD = 162;
 
+type Props = {
+  records: Array<string>,
+  onScrollEnd?: () => void,
+};
+
 type State = {
   scrollDirection: string,
-  records: [],
   recordShown: boolean,
   yPosition: number,
 };
 
 export default class Crate extends Component {
-  static navigationOptions = {
-    tabBar: {
-      label: 'My Records',
-      icon: ({ tintColor }) => (
-        <Image
-          source={record}
-          style={[styles.icon]}
-        />
-      ),
-    },
-  };
   state: State = {
     scrollDirection: 'top',
     records: [],
@@ -49,14 +39,15 @@ export default class Crate extends Component {
   };
   currentY: number = 0;
   scrollViewRef: ScrollView = null;
+  debouncedOnScrollEnd: () => void;
 
-  async componentDidMount() {
-    const records = await getRecordsPage(1);
-    this.setState({ records });
+  constructor(props: Props) {
+    super(props);
+    this.debouncedOnScrollEnd = _.debounce(this.props.onScrollEnd, 1000);
   }
 
   render() {
-    const { records } = this.state;
+    const { records } = this.props;
     const height = records.length * RECORD_HEIGHT_SPACE;
     return (
       <ScrollView
@@ -87,11 +78,11 @@ export default class Crate extends Component {
     const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
     const { y: yPosition } = contentOffset;
     const maxScrollHeight = contentSize.height - layoutMeasurement.height;
-    const isTopDirection = yPosition <= maxScrollHeight / 2;
-    const isBottomDirection = yPosition >= maxScrollHeight / 2;
-    //if (isTopDirection || isBottomDirection) {
-      this.setState({ yPosition });
-    //}
+    const isBottomReached = yPosition + Dimensions.get('window').height >= contentSize.height;
+    if (isBottomReached) {
+      this.debouncedOnScrollEnd();
+    }
+    this.setState({ yPosition });
   }
 
   onRecordShow(topValue: number): void {
@@ -119,8 +110,4 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: constants.appBackgroundColor,
   },
-  icon: {
-    width: 30,
-    height: 30,
-  }
 })

@@ -31,13 +31,25 @@ async function getCollectionPage(pageNumber: number): Promise<*> {
       records_per_page: recordsPerPage
     }
   } = conf;
-  const userCollectionUrl = endpoints.collection.replace('{username}', 'leudanielm');
+  const { username } = await getIdentity();
+  const userCollectionUrl = endpoints.collection.replace('{username}', username);
   const collectionUrl = `${apiUrl}${userCollectionUrl}?per_page=${recordsPerPage}&page=${pageNumber}`;
   const collectionResponse = await secureFetch(collectionUrl);
   const collectionJson = await getJson(collectionResponse);
   const { releases, pagination: { pages: totalPages } } = collectionJson;
 
   return { totalPages, releases };
+}
+
+async function getIdentity(): Promise<*> {
+  const {
+    discogs: {
+      api_url: apiUrl,
+      endpoints,
+    }
+  } = conf;
+  const response = await secureFetch(`${apiUrl}${endpoints.identity}`);
+  return await getJson(response);
 }
 
 function getJson(response): Promise<*> {

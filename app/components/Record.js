@@ -61,7 +61,7 @@ export default class Record extends Component {
     const translateY = this.animatedTranslateY;
     const rotateX = this.animatedRotateX.interpolate({
       inputRange: [0, this.props.maxYPosition],
-      outputRange: ['-60deg', '-10deg'],
+      outputRange: ['-40deg', '-10deg'],
       extrapolate: 'clamp'
     });
     const transformProps = [

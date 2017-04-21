@@ -1,6 +1,13 @@
 /* @flow */
 import React, { Component } from 'react';
-import { Image, StyleSheet } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import record from './assets/record.png';
 import { getRecordsPage } from '../discogs';
 import Crate from './Crate';
@@ -25,16 +32,25 @@ export default class CrateContainer extends Component {
   };
   state: State = { records: [], currentPage: 1, totalPages: 1 };
 
-  componentWillMount() {
-    this.getRecords(this.state.currentPage);
+  render() {
+    const { records } = this.state;
+    return (
+      <View style={styles.root}>
+        {!Boolean(records.length) && 
+        <TouchableHighlight
+          style={styles.getCollectionButton}
+          onPress={() => this.getRecordsCollection()}>
+          <Text>Get my collection</Text>
+        </TouchableHighlight>}
+        {Boolean(records.length) && <Crate
+          records={records}
+          onScrollEnd={() => this.onCrateScrollEnd()}/>}
+      </View>
+    );
   }
 
-  render() {
-    return (
-      <Crate
-        records={this.state.records}
-        onScrollEnd={() => this.onCrateScrollEnd()}/>
-    );
+  getRecordsCollection() {
+    this.getRecords(this.state.currentPage);
   }
 
   onCrateScrollEnd() {
@@ -57,8 +73,26 @@ export default class CrateContainer extends Component {
 }
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   icon: {
     width: 30,
     height: 30,
+  },
+  backgroundCover: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
+  getCollectionButton: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+    padding: 30,
+    bottom: 10,
+    width: Dimensions.get('window').width - 20,
+    backgroundColor: '#bada55',
+    borderRadius: 5,
   },
 });

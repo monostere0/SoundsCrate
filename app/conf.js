@@ -11,6 +11,7 @@ export default {
     api_url: 'https://api.discogs.com/',
     endpoints: {
       collection: 'users/{username}/collection',
+      identity: 'oauth/identity',
     },
     records_per_page: 20,
   },

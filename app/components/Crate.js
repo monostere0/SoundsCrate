@@ -54,7 +54,7 @@ export default class Crate extends Component {
         style={[styles.crate, { height }]}
         onScroll={event => this.onScroll(event)}
         ref={ref => this.scrollViewRef = ref}
-        scrollEventThrottle={10}
+        scrollEventThrottle={5}
         contentContainerStyle={[styles.container, { height }]}>
         {records.map((image, i) => {
           const zIndex = i + 1;

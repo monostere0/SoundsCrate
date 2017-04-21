@@ -11,6 +11,7 @@ import {
 import record from './assets/record.png';
 import { getCollectionFolder } from '../discogs';
 import Crate from './Crate';
+import LoadingIndicator from './LoadingIndicator';
 
 type State = {
   records: Array<string>,
@@ -21,7 +22,7 @@ type State = {
 export default class CrateContainer extends Component {
   state: State = { records: [], currentPage: 1, totalPages: 1 };
 
-  componentDidMount() {
+  componentWillMount() {
     this.getCollectionFolder(this.state.currentPage);
   }
 
@@ -29,9 +30,10 @@ export default class CrateContainer extends Component {
     const { records } = this.state;
     return (
       <View style={styles.root}>
-        <Crate
+        {!Boolean(records.length) && <LoadingIndicator/>}
+        {Boolean(records.length) && <Crate
           records={records}
-          onScrollEnd={() => this.onCrateScrollEnd()}/>
+          onScrollEnd={() => this.onCrateScrollEnd()}/>}
       </View>
     );
   }
@@ -64,7 +66,5 @@ export default class CrateContainer extends Component {
 }
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
+  root: { flex: 1 },
 });

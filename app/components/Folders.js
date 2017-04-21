@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { getCollectionFolders } from '../discogs';
+import LoadingIndicator from './LoadingIndicator';
 
 type State = {
   folders: [],
@@ -20,9 +21,11 @@ export default class Folders extends Component {
   }
 
   render() {
+    const { folders } = this.state;
     return (
       <ScrollView style={styles.root}>
-        {this.state.folders.map((folder, index) => (
+        {!Boolean(folders.length) && <LoadingIndicator/>}
+        {Boolean(folders.length) && folders.map((folder, index) => (
           <TouchableHighlight
             key={index}
             style={styles.folder}
@@ -60,5 +63,5 @@ const styles = StyleSheet.create({
   },
   folderText: {
     fontSize: 16,
-  }
+  },
 });

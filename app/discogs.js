@@ -8,8 +8,8 @@ type RecordsPage = {
   records: Array<string>,
 }
 
-export async function getRecordsPage(pageNumber: number): Promise<RecordsPage> {
-  const { totalPages, releases } = await getCollectionPage(pageNumber);
+export async function getCollectionFolder(folderId: number, pageNumber: number): Promise<RecordsPage> {
+  const { totalPages, releases } = await getCollectionFolderPage(folderId, pageNumber);
   const releasesRequests = releases
     .filter(release => {
       const { basic_information: { formats } } = release;
@@ -23,7 +23,7 @@ export async function getRecordsPage(pageNumber: number): Promise<RecordsPage> {
    return { totalPages, records };
 }
 
-async function getCollectionPage(pageNumber: number): Promise<*> {
+export async function getCollectionFolders(): Promise<*> {
   const {
     discogs: {
       api_url: apiUrl,
@@ -32,11 +32,30 @@ async function getCollectionPage(pageNumber: number): Promise<*> {
     }
   } = conf;
   const { username } = await getIdentity();
-  const userCollectionUrl = endpoints.collection.replace('{username}', username);
-  const collectionUrl = `${apiUrl}${userCollectionUrl}?per_page=${recordsPerPage}&page=${pageNumber}`;
-  const collectionResponse = await secureFetch(collectionUrl);
-  const collectionJson = await getJson(collectionResponse);
-  const { releases, pagination: { pages: totalPages } } = collectionJson;
+  const foldersCollectionUrl = endpoints.folders.replace('{username}', username);
+  const foldersUrl = `${apiUrl}${foldersCollectionUrl}`;
+  const foldersResponse = await secureFetch(foldersUrl);
+  const { folders } = await getJson(foldersResponse);
+
+  return folders.map(folder => ({ id: folder.id, name: folder.name }));
+}
+
+async function getCollectionFolderPage(folderId: number, pageNumber: number): Promise<*> {
+  const {
+    discogs: {
+      api_url: apiUrl,
+      endpoints,
+      records_per_page: recordsPerPage
+    }
+  } = conf;
+  const { username } = await getIdentity();
+  const userFolderUrl = endpoints.folder.replace('{username}', username).replace('{id}', folderId.toString());
+  const folderUrl = `${apiUrl}${userFolderUrl}?per_page=${recordsPerPage}&page=${pageNumber}`;
+  const folderResponse = await secureFetch(folderUrl);
+  const {
+    releases,
+    pagination: { pages: totalPages }
+  } = await getJson(folderResponse);
 
   return { totalPages, releases };
 }

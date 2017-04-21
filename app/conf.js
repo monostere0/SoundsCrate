@@ -10,7 +10,8 @@ export default {
     },
     api_url: 'https://api.discogs.com/',
     endpoints: {
-      collection: 'users/{username}/collection',
+      folders: 'users/{username}/collection/folders',
+      folder: 'users/{username}/collection/folders/{id}/releases',
       identity: 'oauth/identity',
     },
     records_per_page: 20,

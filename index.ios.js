@@ -1,11 +1,18 @@
 /* @flow */
 import { AppRegistry } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 
+import Folders from './app/components/Folders';
 import CrateContainer from './app/components/CrateContainer';
 
-const SoundsCraterApp = TabNavigator({
-  Crate: { screen: CrateContainer },
+const SoundsCraterApp = StackNavigator({
+  Folders: { screen: Folders },
+  Folder: {
+    path: 'folder/:id',
+    screen: CrateContainer,
+  },
+}, {
+  headerMode: 'none',
 });
 
 AppRegistry.registerComponent('SoundsCrater', () => SoundsCraterApp);

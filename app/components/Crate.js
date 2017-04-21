@@ -54,7 +54,7 @@ export default class Crate extends Component {
         style={[styles.crate, { height }]}
         onScroll={event => this.onScroll(event)}
         ref={ref => this.scrollViewRef = ref}
-        scrollEventThrottle={5}
+        scrollEventThrottle={2}
         contentContainerStyle={[styles.container, { height }]}>
         {records.map((image, i) => {
           const zIndex = i + 1;
@@ -102,9 +102,6 @@ export default class Crate extends Component {
 }
 
 const styles = StyleSheet.create({
-  root: {
-    backgroundColor: constants.appBackgroundColor,
-  },
   container: {
     justifyContent: 'center',
     alignItems: 'flex-start',

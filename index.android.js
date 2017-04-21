@@ -1,10 +1,10 @@
 /* @flow */
 import { AppRegistry } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 
 import CrateContainer from './app/components/CrateContainer';
 
-const SoundsCraterApp = TabNavigator({
+const SoundsCraterApp = StackNavigator({
   Crate: { screen: CrateContainer },
 });
 

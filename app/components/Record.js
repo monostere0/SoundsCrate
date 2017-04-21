@@ -26,8 +26,8 @@ type Props = {
   canBeShown: boolean,
   cover: string,
   isLast: boolean,
-  key: number,
-  style: any,
+  key?: number,
+  style?: any,
   listYPosition: number,
   maxYPosition: number,
 };

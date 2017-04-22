@@ -56,7 +56,7 @@ export default class Record extends Component {
     this.animatedRotateX.setValue(ROTATE_X_DEFAULT_VALUE);
   }
 
-  render() {
+  render(): React.Element<*> {
     const perspective = this.animatedPerspective;
     const translateY = this.animatedTranslateY;
     const rotateX = this.animatedRotateX.interpolate({
@@ -83,13 +83,13 @@ export default class Record extends Component {
       </AnimatedTouchableOpacity>);
   }
 
-  onPress(): void {
+  onPress() {
     if (this.props.canBeShown) {
       this._show(() => this._hide());
     }
   }
 
-  _animateRotateX(value): void {
+  _animateRotateX(value: number) {
     this._getXAnimation(value).start();
   }
 
@@ -126,7 +126,7 @@ export default class Record extends Component {
     )
   }
 
-  _show(callback?: () => void): void {
+  _show(callback?: () => void) {
     this.props.onShow();
     const multipledTop = Math.max(this.props.style.top, MIN_PERSPECTIVE_VALUE) * PERSPECTIVE_MULTIPLY_FACTOR;
     const perspectiveValue = Math.min(multipledTop, PERSPECTIVE_ANIMATED_VALUE);
@@ -137,7 +137,7 @@ export default class Record extends Component {
     ]).start(() => callback && callback());
   }
 
-  _hide(): void {
+  _hide() {
     this.props.onHide();
     Animated.parallel([
       this._getYAnimation(Y_DEFAULT_VALUE),

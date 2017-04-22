@@ -33,18 +33,18 @@ function oAuthFetch(url: string, config: Object = {}): Promise<*> {
   return fetch(url, secureConfig);
 }
 
-function startOAuthFlow() {
+function startOAuthFlow(): Promise<*> {
   return initialize()
     .then(oauth => redirectToLogin(`${conf.discogs.oauth.authorize_url}${oauth.oauth_token}`));
 }
 
-function initialize() {
+function initialize(): Promise<*> {
   return new Promise((resolve, reject) => {
     fetch(conf.discogs.oauth.request_token_url, {
       method: 'GET',
       headers: getAppHeaders(getInitialHeaders())
     }).then((response) => {
-      resolveAndParseQs(response, parsedQs => {
+      resolveAndParseQs(response, (parsedQs: any) => {
         storedTokenSecret = parsedQs.oauth_token_secret;
         resolve(parsedQs);
       });
@@ -52,9 +52,9 @@ function initialize() {
   });
 }
 
-function redirectToLogin(url): Promise<*> {
+function redirectToLogin(url: string): Promise<*> {
   return new Promise((resolve, reject) => {
-    Linking.addEventListener('url', function urlListener(event) {
+    Linking.addEventListener('url', function urlListener(event: any) {
       const urlQueryString = event.url.match(/(\w*\=\w*)+/g).join('&');
       const { oauth_token, oauth_verifier } = qs.parse(urlQueryString);
       authorizeAndStoreToken(oauth_token, oauth_verifier).then(resolve, reject);
@@ -68,7 +68,7 @@ function storeSecret(tokenSecret: string) {
   storedTokenSecret = tokenSecret;
 }
 
-function openURL(url, reject) {
+function openURL(url: string, reject: () => void) {
   Linking.canOpenURL(url)
     .then(supported => {
       if (supported) {
@@ -111,7 +111,7 @@ function accessToken(token: string, verifier: string): Promise<*> {
   });
 }
 
-function getAppHeaders(oauthHeaders) {
+function getAppHeaders(oauthHeaders: string): Object {
   return {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Accept': 'application/vnd.discogs.v2.plaintext+json',
@@ -120,7 +120,7 @@ function getAppHeaders(oauthHeaders) {
   };
 }
 
-function getSecureHeaders(oAuthObject: OAuthData) {
+function getSecureHeaders(oAuthObject: OAuthData): string {
   const date = new Date();
   return [`OAuth oauth_consumer_key="${conf.discogs.oauth.key}"`,
     `oauth_nonce="${getNonce(date)}"`,
@@ -130,7 +130,7 @@ function getSecureHeaders(oAuthObject: OAuthData) {
     `oauth_token="${oAuthObject.oauth_token}"`].join(', ');
 }
 
-function getInitialHeaders() {
+function getInitialHeaders(): string {
   const date = new Date();
   return [`OAuth oauth_consumer_key="${conf.discogs.oauth.key}"`,
     `oauth_nonce="${getNonce(date)}"`,
@@ -140,7 +140,7 @@ function getInitialHeaders() {
     `oauth_callback="${conf.oauth_callback_url}"`].join(', ');
 }
 
-function getAuthorizationHeaders(token: string, verifier: string) {
+function getAuthorizationHeaders(token: string, verifier: string): string {
   if (!storedTokenSecret) {
     throw new Error('Token secret is null. Call initialize() before authorize().');
   }
@@ -154,11 +154,11 @@ function getAuthorizationHeaders(token: string, verifier: string) {
     `oauth_verifier="${verifier}"`].join(', ');
 }
 
-function getNonce(date) {
+function getNonce(date: Date): string {
   return (Math.round(date.getTime() * Math.random())).toString(16);
 }
 
-function percentEncode(str) {
+function percentEncode(str: string): string {
   return encodeURIComponent(str)
     .replace(/\!/g, "%21")
     .replace(/\*/g, "%2A")
@@ -167,6 +167,6 @@ function percentEncode(str) {
     .replace(/\)/g, "%29");
 }
 
-function resolveAndParseQs(response, resolveFn) {
+function resolveAndParseQs(response: any, resolveFn: () => void) {
   response.text().then(text => resolveFn(qs.parse(text)));
 }

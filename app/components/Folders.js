@@ -21,14 +21,14 @@ export default class Folders extends Component {
     this.getFolders();
   }
 
-  render() {
+  render(): React.Element<*> {
     const { folders } = this.state;
     const isLoading = !Boolean(folders.length);
-    const contentContainerStyle = styles[isLoading ? 'root' : 'noFlex'];
+    const contentContainerStyle = isLoading ? styles.root : styles.noFlex;
     return (
       <ScrollView style={styles.root} contentContainerStyle={contentContainerStyle}>
         {isLoading && <LoadingIndicator/>}
-        {!isLoading && folders.map((folder, index) => (
+        {!isLoading && folders.map((folder: { id: number, name: string }, index: number) => (
           <TouchableHighlight
             key={index}
             style={styles.folder}
@@ -46,7 +46,7 @@ export default class Folders extends Component {
     navigate('Folder', { id });
   }
 
-  async getFolders() {
+  async getFolders(): Promise<*> {
     const folders = await getCollectionFolders();
     this.setState({ folders });
   }

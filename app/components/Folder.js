@@ -46,17 +46,17 @@ export default class Folder extends Component {
     this.debouncedOnScrollEnd = _.debounce(this.props.onScrollEnd, 1000);
   }
 
-  render() {
+  render(): React.Element<*> {
     const { records } = this.props;
     const height = records.length * RECORD_HEIGHT_SPACE;
     return (
       <ScrollView
         style={[styles.crate, { height }]}
-        onScroll={event => this.onScroll(event)}
-        ref={ref => this.scrollViewRef = ref}
+        onScroll={(event: any) => this.onScroll(event)}
+        ref={(ref: React.Element<*>) => this.scrollViewRef = ref}
         scrollEventThrottle={2}
         contentContainerStyle={[styles.container, { height }]}>
-        {records.map((image, i) => {
+        {records.map((image: string, i: number) => {
           const zIndex = i + 1;
           const top = !i ? FIRST_RECORD_TOP_SPACE : i * RECORD_TOP_SPACE;
           return (<Record
@@ -74,7 +74,7 @@ export default class Folder extends Component {
     );
   }
 
-  onScroll(event: any): void {
+  onScroll(event: any) {
     const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
     const { y: yPosition } = contentOffset;
     const maxScrollHeight = contentSize.height - layoutMeasurement.height;
@@ -85,7 +85,7 @@ export default class Folder extends Component {
     this.setState({ yPosition });
   }
 
-  onRecordShow(topValue: number): void {
+  onRecordShow(topValue: number) {
     const { yPosition } = this.state;
     const scrollTopDiff = (topValue - RECORD_SCROLL_DIFF_THRESHOLD) - yPosition;
     if (scrollTopDiff < 0) {
@@ -96,7 +96,7 @@ export default class Folder extends Component {
     this.setState({ recordShown: true });
   }
 
-  onRecordHide(): void {
+  onRecordHide() {
     this.setState({ recordShown: false });
   }
 }

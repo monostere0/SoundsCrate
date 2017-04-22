@@ -5,20 +5,20 @@ import qs from 'query-string';
 
 type RecordsPage = {
   totalPages: number,
-  records: Array<string>,
-}
+  records: Array<string>
+};
 
 export async function getCollectionFolder(folderId: number, pageNumber: number): Promise<RecordsPage> {
   const { totalPages, releases } = await getCollectionFolderPage(folderId, pageNumber);
   const releasesRequests = releases
-    .filter(release => {
+    .filter((release: any) => {
       const { basic_information: { formats } } = release;
-      return formats && formats.some(format => format.name === 'Vinyl');
+      return formats && formats.some((format: any) => format.name === 'Vinyl');
     })
-    .map(release => secureFetch(release.basic_information.resource_url));
+    .map((release: any) => secureFetch(release.basic_information.resource_url));
    const releasesResponse = await Promise.all(releasesRequests);
    const releasesJson = await Promise.all(releasesResponse.map(getJson));
-   const records = releasesJson.map(release => release.images.length && release.images[0].resource_url);
+   const records = releasesJson.map((release: any) => release.images.length && release.images[0].resource_url);
 
    return { totalPages, records };
 }
@@ -37,7 +37,7 @@ export async function getCollectionFolders(): Promise<*> {
   const foldersResponse = await secureFetch(foldersUrl);
   const { folders } = await getJson(foldersResponse);
 
-  return folders.map(folder => ({ id: folder.id, name: folder.name }));
+  return folders.map((folder: any) => ({ id: folder.id, name: folder.name }));
 }
 
 async function getCollectionFolderPage(folderId: number, pageNumber: number): Promise<*> {
@@ -71,6 +71,6 @@ async function getIdentity(): Promise<*> {
   return await getJson(response);
 }
 
-function getJson(response): Promise<*> {
+function getJson(response: any): Promise<*> {
   return response.json();
 }

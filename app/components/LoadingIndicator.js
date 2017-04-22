@@ -19,7 +19,7 @@ export default class LoadingIndicator extends Component {
     this.animateNeedle();
   }
 
-  render() {
+  render(): React.Element<*> {
     const rotate = this._getInterpolation('0deg', '-30deg');
     const recordRotate = this._getInterpolation('0deg', '360deg');
     const translateX = this._getInterpolation(0, 6);
@@ -38,21 +38,21 @@ export default class LoadingIndicator extends Component {
   }
 
   animateNeedle() {
-    this._getNeedleAnimation(30).start(({ finished }) => {
-      finished && this._getNeedleAnimation(0).start(({ finished }) => {
+    this._getNeedleAnimation(30).start(({ finished }: any) => {
+      finished && this._getNeedleAnimation(0).start(({ finished }: any) => {
         finished && this.animateNeedle();
       });
     });
   }
 
-  _getInterpolation(...outputRange: Array<string | number>) {
+  _getInterpolation(...outputRange: Array<string | number>): Animated.Value {
     return this.needleAnimation.interpolate({
       inputRange: [0, 30],
       outputRange,
     });
   }
 
-  _getNeedleAnimation(toValue: number) {
+  _getNeedleAnimation(toValue: number): Animated.Value {
     return Animated.spring(
       this.needleAnimation,
       { toValue,

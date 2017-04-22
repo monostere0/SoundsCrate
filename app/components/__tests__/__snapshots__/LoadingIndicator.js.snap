@@ -1,0 +1,99 @@
+exports[`app/components/LoadingIndicator should render 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }>
+  <Image
+    source={1}
+    style={
+      Object {
+        "height": 100,
+        "position": "absolute",
+        "width": 100,
+      }
+    } />
+  <Image
+    source={1}
+    style={
+      Array [
+        Object {
+          "height": 80,
+          "position": "absolute",
+          "width": 80,
+        },
+        Object {
+          "transform": Array [
+            Object {
+              "rotate": Object {
+                "inputRange": Array [
+                  0,
+                  30,
+                ],
+                "outputRange": Array [
+                  "0deg",
+                  "360deg",
+                ],
+              },
+            },
+          ],
+        },
+      ]
+    } />
+  <Image
+    source={1}
+    style={
+      Array [
+        Object {
+          "height": 45,
+          "marginLeft": 65,
+          "marginTop": -30,
+          "width": 20,
+        },
+        Object {
+          "transform": Array [
+            Object {
+              "rotate": Object {
+                "inputRange": Array [
+                  0,
+                  30,
+                ],
+                "outputRange": Array [
+                  "0deg",
+                  "-30deg",
+                ],
+              },
+            },
+            Object {
+              "translateX": Object {
+                "inputRange": Array [
+                  0,
+                  30,
+                ],
+                "outputRange": Array [
+                  0,
+                  6,
+                ],
+              },
+            },
+            Object {
+              "translateY": Object {
+                "inputRange": Array [
+                  0,
+                  30,
+                ],
+                "outputRange": Array [
+                  0,
+                  4,
+                ],
+              },
+            },
+          ],
+        },
+      ]
+    } />
+</View>
+`;

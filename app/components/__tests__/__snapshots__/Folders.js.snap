@@ -1,0 +1,74 @@
+exports[`app/components/Folders should render a list of TouchableHighlights if there is data 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "flex": 1,
+    }
+  }>
+  <View>
+    <TouchableHighlight
+      onPress={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#eee",
+          "borderBottomColor": "#ccc",
+          "borderBottomWidth": 1,
+          "justifyContent": "center",
+          "padding": 30,
+        }
+      }
+      underlayColor="#ccc">
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "fontSize": 16,
+          }
+        }>
+        foo
+      </Text>
+    </TouchableHighlight>
+    <TouchableHighlight
+      onPress={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#eee",
+          "borderBottomColor": "#ccc",
+          "borderBottomWidth": 1,
+          "justifyContent": "center",
+          "padding": 30,
+        }
+      }
+      underlayColor="#ccc">
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "fontSize": 16,
+          }
+        }>
+        bar
+      </Text>
+    </TouchableHighlight>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`app/components/Folders should render a loader if there is no data 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "flex": 1,
+    }
+  }>
+  <View>
+    <LoadingIndicator />
+  </View>
+</RCTScrollView>
+`;

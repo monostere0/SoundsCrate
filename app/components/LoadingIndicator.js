@@ -10,6 +10,8 @@ import record from './assets/record.png';
 import needle from './assets/needle.png';
 import player from './assets/player.png';
 
+const ANIMATION_DURATION = 500;
+
 export default class LoadingIndicator extends Component {
   needleAnimation: Animated.Value = new Animated.Value(0);
 
@@ -54,7 +56,7 @@ export default class LoadingIndicator extends Component {
     return Animated.spring(
       this.needleAnimation,
       { toValue,
-        duration: 500,
+        duration: ANIMATION_DURATION,
         useNativeDriver: true, }
     );
   }

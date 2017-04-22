@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
+    "lint": "eslint app/**/*.js",
     "flow": "flow check"
   },
   "dependencies": {
@@ -15,8 +16,11 @@
     "react-navigation": "^1.0.0-beta.7"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "babel-jest": "17.0.2",
     "babel-preset-react-native": "1.9.0",
+    "eslint": "^3.19.0",
+    "eslint-plugin-flowtype": "^2.32.1",
     "flow-bin": "^0.42.0",
     "jest": "17.0.3",
     "react-test-renderer": "15.4.1"

@@ -21,13 +21,13 @@ const RECORD_SCROLL_DIFF_THRESHOLD = 162;
 
 type Props = {
   records: Array<string>,
-  onScrollEnd?: () => void,
+  onScrollEnd?: () => void
 };
 
 type State = {
   scrollDirection: string,
   recordShown: boolean,
-  yPosition: number,
+  yPosition: number
 };
 
 export default class Folder extends Component {

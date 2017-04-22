@@ -29,13 +29,13 @@ type Props = {
   key?: number,
   style?: any,
   listYPosition: number,
-  maxYPosition: number,
+  maxYPosition: number
 };
 
 type State = {
   transform: Array<Object>,
   currentDirection: string,
-  isShown: boolean,
+  isShown: boolean
 };
 
 export default class Record extends Component {

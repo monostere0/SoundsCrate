@@ -11,7 +11,7 @@ import { getCollectionFolders } from '../discogs';
 import LoadingIndicator from './LoadingIndicator';
 
 type State = {
-  folders: [],
+  folders: []
 };
 
 export default class Folders extends Component {

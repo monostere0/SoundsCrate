@@ -16,7 +16,7 @@ import LoadingIndicator from './LoadingIndicator';
 type State = {
   records: Array<string>,
   totalPages: number,
-  currentPage: number,
+  currentPage: number
 };
 
 export default class FolderContainer extends Component {
@@ -26,7 +26,7 @@ export default class FolderContainer extends Component {
     this.getCollectionFolder(this.state.currentPage);
   }
 
-  render() {
+  render(): React.Element<*> {
     const { records } = this.state;
     return (
       <View style={styles.root}>
@@ -51,7 +51,7 @@ export default class FolderContainer extends Component {
     }
   }
 
-  async getFolder(pageNumber: number) {
+  async getFolder(pageNumber: number): Promise<*> {
     const { state } = this.props.navigation;
     const recordsPage = await getCollectionFolder(
       state.params.id,

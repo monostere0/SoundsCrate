@@ -23,10 +23,12 @@ export default class Folders extends Component {
 
   render() {
     const { folders } = this.state;
+    const isLoading = !Boolean(folders.length);
+    const contentContainerStyle = styles[isLoading ? 'root' : 'noFlex'];
     return (
-      <ScrollView style={styles.root} contentContainerStyle={styles.root}>
-        {!Boolean(folders.length) && <LoadingIndicator/>}
-        {Boolean(folders.length) && folders.map((folder, index) => (
+      <ScrollView style={styles.root} contentContainerStyle={contentContainerStyle}>
+        {isLoading && <LoadingIndicator/>}
+        {!isLoading && folders.map((folder, index) => (
           <TouchableHighlight
             key={index}
             style={styles.folder}
@@ -53,6 +55,9 @@ export default class Folders extends Component {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+  },
+  noFlex: {
+    flex: 0,
   },
   folder: {
     alignItems: 'center',

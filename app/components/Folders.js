@@ -1,6 +1,7 @@
 /* @flow */
 import React, { Component } from 'react';
 import {
+  Dimensions,
   ScrollView,
   StyleSheet,
   Text,
@@ -23,7 +24,7 @@ export default class Folders extends Component {
   render() {
     const { folders } = this.state;
     return (
-      <ScrollView style={styles.root}>
+      <ScrollView style={styles.root} contentContainerStyle={styles.root}>
         {!Boolean(folders.length) && <LoadingIndicator/>}
         {Boolean(folders.length) && folders.map((folder, index) => (
           <TouchableHighlight

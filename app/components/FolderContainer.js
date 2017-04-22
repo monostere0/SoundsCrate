@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import record from './assets/record.png';
 import { getCollectionFolder } from '../discogs';
-import Crate from './Crate';
+import Folder from './Folder';
 import LoadingIndicator from './LoadingIndicator';
 
 type State = {
@@ -19,7 +19,7 @@ type State = {
   currentPage: number,
 };
 
-export default class CrateContainer extends Component {
+export default class FolderContainer extends Component {
   state: State = { records: [], currentPage: 1, totalPages: 1 };
 
   componentWillMount() {
@@ -31,9 +31,9 @@ export default class CrateContainer extends Component {
     return (
       <View style={styles.root}>
         {!Boolean(records.length) && <LoadingIndicator/>}
-        {Boolean(records.length) && <Crate
+        {Boolean(records.length) && <Folder
           records={records}
-          onScrollEnd={() => this.onCrateScrollEnd()}/>}
+          onScrollEnd={() => this.onFolderScrollEnd()}/>}
       </View>
     );
   }
@@ -42,7 +42,7 @@ export default class CrateContainer extends Component {
     this.getFolder(pageNumber);
   }
 
-  onCrateScrollEnd() {
+  onFolderScrollEnd() {
     const { currentPage, totalPages } = this.state;
     if (currentPage < totalPages) {
       this.getCollectionFolder(this.state.currentPage + 1);

@@ -3,13 +3,13 @@ import { AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 import Folders from './app/components/Folders';
-import CrateContainer from './app/components/CrateContainer';
+import FolderContainer from './app/components/FolderContainer';
 
 const SoundsCraterApp = StackNavigator({
   Folders: { screen: Folders },
   Folder: {
     path: 'folder/:id',
-    screen: CrateContainer,
+    screen: FolderContainer,
   },
 }, {
   headerMode: 'none',

@@ -30,7 +30,7 @@ type State = {
   yPosition: number,
 };
 
-export default class Crate extends Component {
+export default class Folder extends Component {
   state: State = {
     scrollDirection: 'top',
     records: [],

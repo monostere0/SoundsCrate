@@ -1,15 +1,20 @@
 /* @flow */
 import conf from '../conf';
 import qs from 'query-string';
-import _ from 'lodash';
 import { AsyncStorage, Linking } from 'react-native';
 
 type OAuthData = { oauth_token: string, oauth_token_secret: string };
+type AppHeaders = {
+  'Content-Type': string,
+  'Accept': string,
+  'Authorization': string,
+  'User-Agent': string
+};
 
 let storedTokenSecret: ?string = null;
 let storedOAuthData: OAuthData = { oauth_token: '', oauth_token_secret: '' };
 
-const STORAGE_APP_ID = '@SoundsCrater:';
+const STORAGE_APP_ID = conf.storage_app_id;
 
 export function secureFetch(url: string, config: Object = {}): Promise<*> {
   return AsyncStorage.getItem(`${STORAGE_APP_ID}oauthToken`)
@@ -45,7 +50,7 @@ function initialize(): Promise<*> {
       headers: getAppHeaders(getInitialHeaders())
     }).then((response) => {
       resolveAndParseQs(response, (parsedQs: any) => {
-        storedTokenSecret = parsedQs.oauth_token_secret;
+        storeSecret(parsedQs.oauth_token_secret);
         resolve(parsedQs);
       });
     }, reject);
@@ -111,7 +116,7 @@ function accessToken(token: string, verifier: string): Promise<*> {
   });
 }
 
-function getAppHeaders(oauthHeaders: string): Object {
+function getAppHeaders(oauthHeaders: string): AppHeaders {
   return {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Accept': 'application/vnd.discogs.v2.plaintext+json',
@@ -137,7 +142,7 @@ function getInitialHeaders(): string {
     `oauth_signature="${percentEncode(conf.discogs.oauth.secret)}&"`,
     'oauth_signature_method="PLAINTEXT"',
     `oauth_timestamp="${date.getTime()}"`,
-    `oauth_callback="${conf.oauth_callback_url}"`].join(', ');
+    `oauth_callback="${conf.discogs.oauth.callback_url}"`].join(', ');
 }
 
 function getAuthorizationHeaders(token: string, verifier: string): string {

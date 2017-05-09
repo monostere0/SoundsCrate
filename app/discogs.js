@@ -1,12 +1,8 @@
 /* @flow */
 import { secureFetch } from './lib/oauth';
 import conf from './conf';
-import qs from 'query-string';
 
-type RecordsPage = {
-  totalPages: number,
-  records: Array<string>
-};
+import type { Folder, RecordsPage, FolderPage } from './discogsTypes';
 
 export async function getCollectionFolder(folderId: number, pageNumber: number): Promise<RecordsPage> {
   const { totalPages, releases } = await getCollectionFolderPage(folderId, pageNumber);
@@ -23,12 +19,11 @@ export async function getCollectionFolder(folderId: number, pageNumber: number):
    return { totalPages, records };
 }
 
-export async function getCollectionFolders(): Promise<*> {
+export async function getCollectionFolders(): Promise<Array<Folder>> {
   const {
     discogs: {
       api_url: apiUrl,
       endpoints,
-      records_per_page: recordsPerPage
     }
   } = conf;
   const { username } = await getIdentity();
@@ -40,7 +35,7 @@ export async function getCollectionFolders(): Promise<*> {
   return folders.map((folder: any) => ({ id: folder.id, name: folder.name }));
 }
 
-async function getCollectionFolderPage(folderId: number, pageNumber: number): Promise<*> {
+async function getCollectionFolderPage(folderId: number, pageNumber: number): Promise<FolderPage> {
   const {
     discogs: {
       api_url: apiUrl,

@@ -16,24 +16,32 @@ import LoadingIndicator from './LoadingIndicator';
 type State = {
   records: Array<string>,
   totalPages: number,
-  currentPage: number
+  currentPage: number,
+  isLazyLoading: boolean
 };
 
 export default class FolderContainer extends Component {
-  state: State = { records: [], currentPage: 1, totalPages: 1 };
+  state: State = {
+    records: [],
+    currentPage: 1,
+    totalPages: 1,
+    isLazyLoading: false,
+  };
 
   componentWillMount() {
     this.getCollectionFolder(this.state.currentPage);
   }
 
   render(): React.Element<*> {
-    const { records } = this.state;
+    const { records, totalPages, isLazyLoading } = this.state;
     return (
       <View style={styles.root}>
         {!Boolean(records.length) && <LoadingIndicator/>}
         {Boolean(records.length) && <Folder
           records={records}
+          totalPages={totalPages}
           onScrollEnd={() => this.onFolderScrollEnd()}/>}
+        {isLazyLoading && <LoadingIndicator isOverlay />}
       </View>
     );
   }
@@ -53,6 +61,7 @@ export default class FolderContainer extends Component {
 
   async getFolder(pageNumber: number): Promise<*> {
     const { state } = this.props.navigation;
+    this.setState({ isLazyLoading: true });
     const recordsPage = await getCollectionFolder(
       state.params.id,
       pageNumber,
@@ -61,6 +70,7 @@ export default class FolderContainer extends Component {
       currentPage: pageNumber,
       records: this.state.records.concat(recordsPage.records),
       totalPages: recordsPage.totalPages,
+      isLazyLoading: false,
     });
   }
 }

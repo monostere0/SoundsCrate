@@ -12,6 +12,8 @@ import player from './assets/player.png';
 
 const ANIMATION_DURATION = 500;
 
+type Props = { isOverlay?: boolean };
+
 export default class LoadingIndicator extends Component {
   needleAnimation: Animated.Value = new Animated.Value(0);
 
@@ -25,8 +27,10 @@ export default class LoadingIndicator extends Component {
     const translateX = this._getInterpolation(0, 6);
     const translateY = this._getInterpolation(0, 4);
     const transform = [{ rotate }, { translateX }, { translateY }];
+    const { isOverlay } = this.props;
+
     return (
-      <View style={styles.root}>
+      <View style={[styles.root, isOverlay && styles.overlayRoot]}>
         <Image style={styles.player} source={player} />
         <Animated.Image
           style={[styles.record, {
@@ -67,6 +71,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  overlayRoot: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
   player: {
     position: 'absolute',

@@ -9,9 +9,9 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import _ from 'lodash';
 import Record, { ANIMATION_DURATION } from './Record';
 import constants from '../constants';
-import _ from 'lodash';
 
 const RECORD_HEIGHT_SPACE = 77;
 const RECORD_TOP_SPACE = 70;
@@ -21,19 +21,19 @@ const RECORD_SCROLL_DIFF_THRESHOLD = 162;
 
 type Props = {
   records: Array<string>,
+  totalPages: number,
   onScrollEnd?: () => void
 };
 
 type State = {
-  scrollDirection: string,
   recordShown: boolean,
   yPosition: number
 };
 
 export default class Folder extends Component {
   state: State = {
-    scrollDirection: 'top',
     records: [],
+
     recordShown: false,
     yPosition: 0,
   };
@@ -79,7 +79,8 @@ export default class Folder extends Component {
     const { y: yPosition } = contentOffset;
     const maxScrollHeight = contentSize.height - layoutMeasurement.height;
     const isBottomReached = yPosition + Dimensions.get('window').height >= contentSize.height;
-    if (isBottomReached) {
+    const shouldLazyLoad = this.props.totalPages > 1;
+    if (shouldLazyLoad && isBottomReached) {
       this.debouncedOnScrollEnd();
     }
     this.setState({ yPosition });

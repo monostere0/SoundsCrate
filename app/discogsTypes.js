@@ -6,8 +6,9 @@ export type RecordsPage = {
 };
 
 export type Folder = {
-  id?: any,
-  name: string
+  id: string,
+  name: string,
+  count: number
 };
 
 export type FolderPage = {
@@ -26,9 +27,9 @@ export type FolderPageReleases = {
 };
 
 export type FolderPageReleasesBasicinformation = {
-  Labels: Array<FolderPageReleasesBasicinformationLabels>,
-  Formats: Array<FolderPageReleasesBasicinformationFormats>,
-  Artists: Array<FolderPageReleasesBasicinformationArtists>,
+  labels: Array<FolderPageReleasesBasicinformationLabels>,
+  formats: Array<FolderPageReleasesBasicinformationFormats>,
+  artists: Array<FolderPageReleasesBasicinformationArtists>,
   thumb: string,
   title: string,
   cover_image: string,

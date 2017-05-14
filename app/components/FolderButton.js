@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { getThumbsInFolder } from '../discogs';
-import type { Folder } from './Folders';
+import type { Folder } from '../discogsTypes';
 
 type Props = {
   folder: Folder,
@@ -31,7 +31,6 @@ export default class FolderButton extends Component {
         <View style={styles.thumbsContainer}>
           {thumbnails.map((thumb, index) => (
             <Image
-              blurRadius={thumbnails.length === 1 ? 2 : 0}
               key={index}
               style={styles.folderThumb}
               source={{ url: thumb }} />
@@ -40,7 +39,7 @@ export default class FolderButton extends Component {
         <TouchableOpacity
           style={styles.folderTouchable}
           onPress={() => this.props.onPress(folder.id)}>
-          <Text style={styles.folderText}>{folder.name}</Text>
+          <Text style={styles.folderText}>{folder.name} ({folder.count})</Text>
         </TouchableOpacity>
       </View>
     );
@@ -86,5 +85,6 @@ const styles = StyleSheet.create({
   folderText: {
     fontSize: 25,
     fontWeight: 'bold',
+    padding: 5,
   },
 });

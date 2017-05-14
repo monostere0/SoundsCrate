@@ -3,31 +3,40 @@ import { secureFetch } from './lib/oauth';
 import conf from './conf';
 import cache from './cache';
 
-import type { Folder, RecordsPage, FolderPage } from './discogsTypes';
+import type {
+  Folder,
+  RecordsPage,
+  FolderPage,
+  FolderPageReleases
+} from './discogsTypes';
 
 export async function getCollectionFolder(folderId: string, pageNumber: number): Promise<RecordsPage> {
-  const { totalPages, releases } = await getCollectionFolderPage(folderId, pageNumber);
   const cachedFolder = cache.get(folderId, pageNumber);
-  if (cachedFolder && cachedFolder.records.length) {
-    return { totalPages, records: cachedFolder.records };
+  if (cachedFolder) {
+    const { totalPages, records } = cachedFolder;
+    return { totalPages, records };
   } else {
-    const releasesRequests = releases
+    // const releasesRequests = releases
+    //   .filter(filterByVinylFormat)
+    //   .map(release => secureFetch(release.basic_information.resource_url));
+    //  const releasesResponse = await Promise.all(releasesRequests);
+    //  const releasesJson = await Promise.all(releasesResponse.map(getJson));
+    //  const records = releasesJson.map(release => release.images.length && release.images[0].resource_url);
+     const { totalPages, releases } = await getCollectionFolderPage(folderId, pageNumber);
+     const records = releases
       .filter(filterByVinylFormat)
-      .map((release: any) => secureFetch(release.basic_information.resource_url));
-     const releasesResponse = await Promise.all(releasesRequests);
-     const releasesJson = await Promise.all(releasesResponse.map(getJson));
-     const records = releasesJson.map((release: any) => release.images.length && release.images[0].resource_url);
-     cache.update(folderId, pageNumber, records);
+      .map(release => release.basic_information.cover_image);
+     cache.update(folderId, pageNumber, records, totalPages)
 
      return { totalPages, records };
   }
 }
 
 export async function getThumbsInFolder(folderId: string): Promise<*> {
-  const { totalPages, releases } = await getCollectionFolderPage(folderId, 1);
+  const { totalPages, releases } = await getCollectionFolderPage(folderId, 1, 4);
   return releases
     .filter(filterByVinylFormat)
-    .map(release => release.basic_information.thumb);
+    .map(release => release.basic_information.cover_image);
 }
 
 export async function getCollectionFolders(): Promise<Array<Folder>> {
@@ -43,20 +52,21 @@ export async function getCollectionFolders(): Promise<Array<Folder>> {
   const foldersResponse = await secureFetch(foldersUrl);
   const { folders } = await getJson(foldersResponse);
 
-  return folders.map((folder: any) => ({ id: folder.id, name: folder.name }));
+  return folders.map(folder => ({ id: folder.id, name: folder.name, count: folder.count }));
 }
 
-async function getCollectionFolderPage(folderId: string, pageNumber: number): Promise<FolderPage> {
+async function getCollectionFolderPage(folderId: string, pageNumber: number, recordsPerPage?: number): Promise<FolderPage> {
   const {
     discogs: {
       api_url: apiUrl,
       endpoints,
-      records_per_page: recordsPerPage
+      records_per_page,
     }
   } = conf;
   const { username } = await getIdentity();
+  const perPage = recordsPerPage || records_per_page;
   const userFolderUrl = endpoints.folder.replace('{username}', username).replace('{id}', folderId.toString());
-  const folderUrl = `${apiUrl}${userFolderUrl}?per_page=${recordsPerPage}&page=${pageNumber}`;
+  const folderUrl = `${apiUrl}${userFolderUrl}?per_page=${perPage}&page=${pageNumber}`;
   const folderResponse = await secureFetch(folderUrl);
   const {
     releases,
@@ -81,7 +91,7 @@ function getJson(response: any): Promise<*> {
   return response.json();
 }
 
-function filterByVinylFormat(release: any): boolean {
+function filterByVinylFormat(release: FolderPageReleases): boolean {
   const { basic_information: { formats } } = release;
   return formats && formats.some(format => format.name === 'Vinyl');
 }

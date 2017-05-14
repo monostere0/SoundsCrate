@@ -12,10 +12,7 @@ export async function getCollectionFolder(folderId: string, pageNumber: number):
     return { totalPages, records: cachedFolder.records };
   } else {
     const releasesRequests = releases
-      .filter((release: any) => {
-        const { basic_information: { formats } } = release;
-        return formats && formats.some((format: any) => format.name === 'Vinyl');
-      })
+      .filter(filterByVinylFormat)
       .map((release: any) => secureFetch(release.basic_information.resource_url));
      const releasesResponse = await Promise.all(releasesRequests);
      const releasesJson = await Promise.all(releasesResponse.map(getJson));
@@ -24,6 +21,13 @@ export async function getCollectionFolder(folderId: string, pageNumber: number):
 
      return { totalPages, records };
   }
+}
+
+export async function getThumbsInFolder(folderId: string): Promise<*> {
+  const { totalPages, releases } = await getCollectionFolderPage(folderId, 1);
+  return releases
+    .filter(filterByVinylFormat)
+    .map(release => release.basic_information.thumb);
 }
 
 export async function getCollectionFolders(): Promise<Array<Folder>> {
@@ -75,4 +79,9 @@ async function getIdentity(): Promise<*> {
 
 function getJson(response: any): Promise<*> {
   return response.json();
+}
+
+function filterByVinylFormat(release: any): boolean {
+  const { basic_information: { formats } } = release;
+  return formats && formats.some(format => format.name === 'Vinyl');
 }

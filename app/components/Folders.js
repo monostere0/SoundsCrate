@@ -13,10 +13,7 @@ import { getCollectionFolders } from '../discogs';
 import LoadingIndicator from './LoadingIndicator';
 import FolderButton from './FolderButton';
 
-export type Folder = {
-  id: string,
-  name: string
-};
+import type { Folder } from '../discogsTypes';
 
 type State = { folders: Array<Folder> };
 

@@ -1,5 +1,4 @@
 /* @flow */
-
 export default {
   update: updateCache,
   get: getCache,

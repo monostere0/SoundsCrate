@@ -39,15 +39,18 @@ export default class FolderButton extends Component {
         <TouchableOpacity
           style={styles.folderTouchable}
           onPress={() => this.props.onPress(folder.id)}>
-          <Text style={styles.folderText}>{folder.name} ({folder.count})</Text>
+          <View style={styles.folderTextWrapper}>
+            <Text style={styles.folderText}>{folder.name}</Text>
+            <View style={styles.textCountWrapper}><Text style={styles.folderTextCount}>{folder.count}  </Text></View>
+          </View>
         </TouchableOpacity>
       </View>
     );
   }
 
   async getFolderThumbs(): Promise<*> {
-    const { id } = this.props.folder;
-    const thumbs = await getThumbsInFolder(id);
+    const { id, count } = this.props.folder;
+    const thumbs = await getThumbsInFolder(id, Math.min(count, 4));
     this.setState({ thumbnails: thumbs });
   }
 }
@@ -82,9 +85,20 @@ const styles = StyleSheet.create({
     bottom: 0,
     zIndex: 1,
   },
+  folderTextWrapper: {
+    flexDirection: 'row',
+  },
   folderText: {
     fontSize: 25,
     fontWeight: 'bold',
     padding: 5,
+  },
+  textCountWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  folderTextCount: {
+    paddingVertical: 12,
+    fontSize: 15,
   },
 });

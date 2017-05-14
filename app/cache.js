@@ -6,22 +6,24 @@ export default {
 
 type Entry = { pageNumber: number, records: Array<string> };
 type Cache = {
-  folderId: {
+  [key: string]: {
     totalPages: number,
     entries: Array<Entry>
   }
 };
+type CacheParams = { folderId: string, entry: Entry, totalPages: number };
 
-const cache = {};
+const cache: Cache = {};
 
-function updateCache(folderId: string, pageNumber: number, records: Array<string>, totalPages: number) {
-  if (!cache[folderId]) {
-    cache[folderId] = {
-      totalPages,
-      entries: []
-    };
-  }
-  cache[folderId].entries.push({ pageNumber, records });
+function updateCache({ folderId, entry, totalPages }: CacheParams) {
+  const cacheByFolderId = cache[folderId] || {
+    cachedPages: 0,
+    totalPages,
+    entries: []
+  };
+  cacheByFolderId.entries.push(entry);
+
+  cache[folderId] = cacheByFolderId;
 }
 
 function getCache(folderId: string, pageNumber: number): ?{ totalPages: number, records: Array<string> } {
@@ -32,9 +34,7 @@ function getCache(folderId: string, pageNumber: number): ?{ totalPages: number, 
       return {
         totalPages: cacheByFolderId.totalPages,
         records: entries.records,
-      };      
+      };
     }
   }
 };
-
-//cache[folderId].find(page => page.pageNumber === pageNumber)

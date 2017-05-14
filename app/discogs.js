@@ -16,27 +16,22 @@ export async function getCollectionFolder(folderId: string, pageNumber: number):
     const { totalPages, records } = cachedFolder;
     return { totalPages, records };
   } else {
-    // const releasesRequests = releases
-    //   .filter(filterByVinylFormat)
-    //   .map(release => secureFetch(release.basic_information.resource_url));
-    //  const releasesResponse = await Promise.all(releasesRequests);
-    //  const releasesJson = await Promise.all(releasesResponse.map(getJson));
-    //  const records = releasesJson.map(release => release.images.length && release.images[0].resource_url);
      const { totalPages, releases } = await getCollectionFolderPage(folderId, pageNumber);
-     const records = releases
-      .filter(filterByVinylFormat)
-      .map(release => release.basic_information.cover_image);
-     cache.update(folderId, pageNumber, records, totalPages)
+     const records = releases.map(getReleaseCoverImage);
+     const entry = { pageNumber, records };
+     cache.update({
+       folderId,
+       entry,
+       totalPages
+     });
 
      return { totalPages, records };
   }
 }
 
-export async function getThumbsInFolder(folderId: string): Promise<*> {
-  const { totalPages, releases } = await getCollectionFolderPage(folderId, 1, 4);
-  return releases
-    .filter(filterByVinylFormat)
-    .map(release => release.basic_information.cover_image);
+export async function getThumbsInFolder(folderId: string, numberOfThumbs: number = 4): Promise<*> {
+  const { totalPages, releases } = await getCollectionFolderPage(folderId, 1, numberOfThumbs);
+  return releases.map(getReleaseCoverImage);
 }
 
 export async function getCollectionFolders(): Promise<Array<Folder>> {
@@ -52,7 +47,11 @@ export async function getCollectionFolders(): Promise<Array<Folder>> {
   const foldersResponse = await secureFetch(foldersUrl);
   const { folders } = await getJson(foldersResponse);
 
-  return folders.map(folder => ({ id: folder.id, name: folder.name, count: folder.count }));
+  return folders.map(folder => ({
+    id: folder.id,
+    name: folder.name,
+    count: folder.count,
+  }));
 }
 
 async function getCollectionFolderPage(folderId: string, pageNumber: number, recordsPerPage?: number): Promise<FolderPage> {
@@ -87,11 +86,10 @@ async function getIdentity(): Promise<*> {
   return await getJson(response);
 }
 
-function getJson(response: any): Promise<*> {
+function getJson(response: Response): Promise<*> {
   return response.json();
 }
 
-function filterByVinylFormat(release: FolderPageReleases): boolean {
-  const { basic_information: { formats } } = release;
-  return formats && formats.some(format => format.name === 'Vinyl');
+function getReleaseCoverImage(release: FolderPageReleases): string {
+  return release.basic_information.cover_image;
 }

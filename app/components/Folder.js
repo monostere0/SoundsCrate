@@ -33,7 +33,6 @@ type State = {
 export default class Folder extends Component {
   state: State = {
     records: [],
-
     recordShown: false,
     yPosition: 0,
   };
@@ -43,7 +42,7 @@ export default class Folder extends Component {
 
   constructor(props: Props) {
     super(props);
-    this.debouncedOnScrollEnd = _.debounce(this.props.onScrollEnd, 1000);
+    this.debouncedOnScrollEnd = _.debounce(this.props.onScrollEnd, 100);
   }
 
   render(): React.Element<*> {

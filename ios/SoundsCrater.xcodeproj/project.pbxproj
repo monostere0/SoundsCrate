@@ -37,6 +37,8 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		E849DF731EAB958100F5B8BD /* records-header.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E849DF721EAB958100F5B8BD /* records-header.jpg */; };
+		E8A24C501F35073C005F5782 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
+		E8A24C551F3507E5005F5782 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = E8A24C541F3507E5005F5782 /* assets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -257,6 +259,8 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		E849DF721EAB958100F5B8BD /* records-header.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "records-header.jpg"; sourceTree = "<group>"; };
+		E8A24C511F3507D1005F5782 /* SoundsCrater.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SoundsCrater.xcodeproj; sourceTree = "<group>"; };
+		E8A24C541F3507E5005F5782 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -466,6 +470,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				E8A24C541F3507E5005F5782 /* assets */,
+				E8A24C511F3507D1005F5782 /* SoundsCrater.xcodeproj */,
 				13B07FAE1A68108700A75B9A /* SoundsCrater */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SoundsCraterTests */,
@@ -483,6 +489,11 @@
 				2D02E47B1E0B4A5D006451C7 /* SoundsCrater-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* SoundsCrater-tvOSTests.xctest */,
 			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8A24C521F3507D1005F5782 /* Products */ = {
+			isa = PBXGroup;
 			name = Products;
 			sourceTree = "<group>";
 		};
@@ -572,21 +583,21 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 5XQTT4S7N9;
+						DevelopmentTeam = 5M6NGQPKT7;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 5XQTT4S7N9;
+						DevelopmentTeam = 5M6NGQPKT7;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 5XQTT4S7N9;
+						DevelopmentTeam = 5M6NGQPKT7;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 5XQTT4S7N9;
+						DevelopmentTeam = 5M6NGQPKT7;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -647,6 +658,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = E8A24C521F3507D1005F5782 /* Products */;
+					ProjectRef = E8A24C511F3507D1005F5782 /* SoundsCrater.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -849,6 +864,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8A24C551F3507E5005F5782 /* assets in Resources */,
+				E8A24C501F35073C005F5782 /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				E849DF731EAB958100F5B8BD /* records-header.jpg in Resources */,
@@ -970,7 +987,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 5XQTT4S7N9;
+				DEVELOPMENT_TEAM = 5M6NGQPKT7;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -992,7 +1009,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 5XQTT4S7N9;
+				DEVELOPMENT_TEAM = 5M6NGQPKT7;
 				INFOPLIST_FILE = SoundsCraterTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1012,7 +1029,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 5XQTT4S7N9;
+				DEVELOPMENT_TEAM = 5M6NGQPKT7;
 				INFOPLIST_FILE = SoundsCrater/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1021,6 +1038,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = SoundsCrater;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1031,7 +1049,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5XQTT4S7N9;
+				DEVELOPMENT_TEAM = 5M6NGQPKT7;
 				INFOPLIST_FILE = SoundsCrater/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1040,6 +1058,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = SoundsCrater;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1053,7 +1072,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 5XQTT4S7N9;
+				DEVELOPMENT_TEAM = 5M6NGQPKT7;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "SoundsCrater-tvOS/Info.plist";
@@ -1080,7 +1099,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 5XQTT4S7N9;
+				DEVELOPMENT_TEAM = 5M6NGQPKT7;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "SoundsCrater-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1105,7 +1124,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 5XQTT4S7N9;
+				DEVELOPMENT_TEAM = 5M6NGQPKT7;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "SoundsCrater-tvOSTests/Info.plist";
@@ -1128,7 +1147,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 5XQTT4S7N9;
+				DEVELOPMENT_TEAM = 5M6NGQPKT7;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "SoundsCrater-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1211,6 +1230,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

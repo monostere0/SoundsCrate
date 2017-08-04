@@ -22,7 +22,7 @@ const RECORD_SCROLL_DIFF_THRESHOLD = 162;
 type Props = {
   records: Array<string>,
   totalPages: number,
-  onScrollEnd?: () => void
+  onScrollEnd: Function,
 };
 
 type State = {
@@ -31,6 +31,7 @@ type State = {
 };
 
 export default class Folder extends Component {
+  static defaultProps = { onScrollEnd: () => {} };
   state: State = {
     records: [],
     recordShown: false,

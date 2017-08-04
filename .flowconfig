@@ -14,6 +14,7 @@
 .*/Libraries/react-native/React.js
 .*/Libraries/react-native/ReactNative.js
 .*/Libraries/react-native/.*/.*
+<PROJECT_ROOT>/node_modules/.*
 
 [include]
 

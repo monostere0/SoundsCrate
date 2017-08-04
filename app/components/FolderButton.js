@@ -12,7 +12,7 @@ import type { Folder } from '../discogsTypes';
 
 type Props = {
   folder: Folder,
-  onPress: () => void
+  onPress: (id: string) => void
 };
 
 export default class FolderButton extends Component {

@@ -1,67 +1,217 @@
 exports[`app/components/Folders should render a list of TouchableHighlights if there is data 1`] = `
 <RCTScrollView
+  contentContainerStyle={
+    Object {
+      "flex": 0,
+    }
+  }
   style={
     Object {
       "flex": 1,
     }
   }>
   <View>
-    <TouchableHighlight
-      onPress={[Function]}
+    <View
       style={
         Object {
-          "alignItems": "center",
-          "backgroundColor": "#eee",
           "borderBottomColor": "#ccc",
           "borderBottomWidth": 1,
-          "justifyContent": "center",
-          "padding": 30,
+          "flex": 1,
+          "height": 100,
         }
-      }
-      underlayColor="#ccc">
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
+      }>
+      <View
         style={
           Object {
-            "fontSize": 16,
+            "alignItems": "flex-start",
+            "flex": 1,
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "justifyContent": "flex-start",
+            "opacity": 0.7,
           }
-        }>
-        foo
-      </Text>
-    </TouchableHighlight>
-    <TouchableHighlight
-      onPress={[Function]}
+        } />
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        collapsable={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 0,
+            "opacity": 1,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "zIndex": 1,
+          }
+        }
+        testID={undefined}
+        tvParallaxProperties={undefined}>
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 25,
+                "fontWeight": "bold",
+                "padding": 5,
+              }
+            }>
+            foo
+          </Text>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "justifyContent": "center",
+              }
+            }>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "fontSize": 15,
+                  "paddingVertical": 12,
+                }
+              }>
+                
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
       style={
         Object {
-          "alignItems": "center",
-          "backgroundColor": "#eee",
           "borderBottomColor": "#ccc",
           "borderBottomWidth": 1,
-          "justifyContent": "center",
-          "padding": 30,
+          "flex": 1,
+          "height": 100,
         }
-      }
-      underlayColor="#ccc">
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
+      }>
+      <View
         style={
           Object {
-            "fontSize": 16,
+            "alignItems": "flex-start",
+            "flex": 1,
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "justifyContent": "flex-start",
+            "opacity": 0.7,
           }
-        }>
-        bar
-      </Text>
-    </TouchableHighlight>
+        } />
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        collapsable={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "bottom": 0,
+            "justifyContent": "center",
+            "left": 0,
+            "opacity": 1,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "zIndex": 1,
+          }
+        }
+        testID={undefined}
+        tvParallaxProperties={undefined}>
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 25,
+                "fontWeight": "bold",
+                "padding": 5,
+              }
+            }>
+            bar
+          </Text>
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "justifyContent": "center",
+              }
+            }>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "fontSize": 15,
+                  "paddingVertical": 12,
+                }
+              }>
+                
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
   </View>
 </RCTScrollView>
 `;
 
 exports[`app/components/Folders should render a loader if there is no data 1`] = `
 <RCTScrollView
+  contentContainerStyle={
+    Object {
+      "flex": 1,
+    }
+  }
   style={
     Object {
       "flex": 1,

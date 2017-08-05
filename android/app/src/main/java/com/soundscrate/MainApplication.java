@@ -1,4 +1,4 @@
-package com.soundscrater;
+package com.soundscrate;
 
 import android.app.Application;
 

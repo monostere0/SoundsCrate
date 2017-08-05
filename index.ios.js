@@ -5,7 +5,7 @@ import { StackNavigator } from 'react-navigation';
 import Folders from './app/components/Folders';
 import FolderContainer from './app/components/FolderContainer';
 
-const SoundsCraterApp = StackNavigator({
+const SoundsCrateApp = StackNavigator({
   Folders: { screen: Folders },
   Folder: {
     path: 'folder/:id',
@@ -15,4 +15,4 @@ const SoundsCraterApp = StackNavigator({
   headerMode: 'none',
 });
 
-AppRegistry.registerComponent('SoundsCrater', () => SoundsCraterApp);
+AppRegistry.registerComponent('SoundsCrate', () => SoundsCrateApp);

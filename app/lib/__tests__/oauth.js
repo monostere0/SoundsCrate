@@ -36,7 +36,7 @@ describe('app/lib/oauth', () => {
       return Promise.resolve('{ "oauth_token": "foo", "oauth_token_secret": "bar" }');
     });
     await secureFetch('http://www.foo.bar', {});
-    expect(AsyncStorage.getItem).toHaveBeenCalledWith('@SoundsCrater:oauthToken');
+    expect(AsyncStorage.getItem).toHaveBeenCalledWith('@SoundsCrate:oauthToken');
     expect(AsyncStorage.setItem).not.toHaveBeenCalled();
     expect(Linking.addEventListener).not.toHaveBeenCalled();
     expect(Linking.canOpenURL).not.toHaveBeenCalled();
@@ -47,7 +47,7 @@ describe('app/lib/oauth', () => {
       return Promise.resolve('{}');
     });
     await secureFetch('http://www.foo.bar', {});
-    expect(AsyncStorage.getItem).toHaveBeenCalledWith('@SoundsCrater:oauthToken');
+    expect(AsyncStorage.getItem).toHaveBeenCalledWith('@SoundsCrate:oauthToken');
     expect(AsyncStorage.setItem).toHaveBeenCalled();
     expect(Linking.addEventListener).toHaveBeenCalled();
     expect(Linking.canOpenURL).toHaveBeenCalled();

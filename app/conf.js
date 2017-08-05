@@ -18,5 +18,5 @@ export default {
     records_per_page: 20,
   },
   app_user_agent: 'Sounds-Crate/1.0',
-  storage_app_id: '@SoundsCrater:',
+  storage_app_id: '@SoundsCrate:',
 };

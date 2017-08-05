@@ -2,17 +2,22 @@
 import type { OAuthData, AppHeaders } from './oauth';
 import conf from '../conf';
 
-export function getNonce(date: Date): string {
-  return (Math.round(date.getTime() * Math.random())).toString(16);
-}
-
-export function percentEncode(str: string): string {
-  return encodeURIComponent(str)
-    .replace(/\!/g, "%21")
-    .replace(/\*/g, "%2A")
-    .replace(/\'/g, "%27")
-    .replace(/\(/g, "%28")
-    .replace(/\)/g, "%29");
+export function getAuthorizationHeaders(
+  token: string,
+  verifier: string,
+  storedTokenSecret?: ?string,
+): string {
+  if (!storedTokenSecret) {
+    throw new Error('Token secret is null. Call initialize() before authorize().');
+  }
+  const date = new Date();
+  return [`OAuth oauth_consumer_key="${conf.discogs.oauth.key}"`,
+  `oauth_nonce="${getNonce(date)}"`,
+  `oauth_token=${token}`,
+  `oauth_signature="${percentEncode(`${conf.discogs.oauth.secret}&${storedTokenSecret}`)}"`,
+    'oauth_signature_method="PLAINTEXT"',
+  `oauth_timestamp="${date.getTime()}"`,
+  `oauth_verifier="${verifier}"`].join(', ');
 }
 
 export function getAppHeaders(oauthHeaders: string): AppHeaders {
@@ -42,4 +47,17 @@ export function getInitialHeaders(): string {
     'oauth_signature_method="PLAINTEXT"',
     `oauth_timestamp="${date.getTime()}"`,
     `oauth_callback="${conf.discogs.oauth.callback_url}"`].join(', ');
+}
+
+function getNonce(date: Date): string {
+  return (Math.round(date.getTime() * Math.random())).toString(16);
+}
+
+function percentEncode(str: string): string {
+  return encodeURIComponent(str)
+    .replace(/\!/g, "%21")
+    .replace(/\*/g, "%2A")
+    .replace(/\'/g, "%27")
+    .replace(/\(/g, "%28")
+    .replace(/\)/g, "%29");
 }

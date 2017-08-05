@@ -6,8 +6,7 @@ import {
   getAppHeaders,
   getSecureHeaders,
   getInitialHeaders,
-  getNonce,
-  percentEncode,
+  getAuthorizationHeaders,
 } from './oauthHelpers';
 
 export type OAuthData = { oauth_token: string, oauth_token_secret: string };
@@ -105,7 +104,7 @@ function authorize(token: string, verifier: string): Promise<*> {
   return new Promise((resolve, reject) => {
     fetch(conf.discogs.oauth.request_token_url, {
       method: 'GET',
-      headers: getAppHeaders(getAuthorizationHeaders(token, verifier))
+      headers: getAppHeaders(getAuthorizationHeaders(token, verifier, storedTokenSecret))
     }).then((response) => {
       resolveAndParseQs(response, resolve);
     }, reject);
@@ -116,27 +115,13 @@ function accessToken(token: string, verifier: string): Promise<*> {
   return new Promise((resolve, reject) => {
     fetch(conf.discogs.oauth.access_token_url, {
       method: 'POST',
-      headers: getAppHeaders(getAuthorizationHeaders(token, verifier))
+      headers: getAppHeaders(getAuthorizationHeaders(token, verifier, storedTokenSecret))
     }).then((response) => {
       resolveAndParseQs(response, resolve);
     }, reject);
   });
 }
 
-function getAuthorizationHeaders(token: string, verifier: string): string {
-  if (!storedTokenSecret) {
-    throw new Error('Token secret is null. Call initialize() before authorize().');
-  }
-  const date = new Date();
-  return [`OAuth oauth_consumer_key="${conf.discogs.oauth.key}"`,
-    `oauth_nonce="${getNonce(date)}"`,
-    `oauth_token=${token}`,
-    `oauth_signature="${percentEncode(`${conf.discogs.oauth.secret}&${storedTokenSecret}`)}"`,
-    'oauth_signature_method="PLAINTEXT"',
-    `oauth_timestamp="${date.getTime()}"`,
-    `oauth_verifier="${verifier}"`].join(', ');
-}
-
-function resolveAndParseQs(response: any, resolveFn: (payload: any) => void) {
+function resolveAndParseQs(response: Response, resolveFn: (payload: any) => void) {
   response.text().then(text => resolveFn(qs.parse(text)));
 }

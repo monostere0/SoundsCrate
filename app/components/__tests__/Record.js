@@ -3,7 +3,15 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Record from '../Record';
 
-// jest.mock('TouchableHighlight', () => 'TouchableHighlight');
+jest.mock('Animated', () => ({
+  createAnimatedComponent(cls: any): any {
+    return cls;
+  },
+  Value: () => ({
+    interpolate() {},
+    setValue() {},
+  }),
+}));
 jest.mock('Image', () => 'Image');
 
 describe('app/components/Record', () => {

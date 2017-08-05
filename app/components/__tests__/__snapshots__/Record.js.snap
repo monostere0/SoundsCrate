@@ -1,0 +1,78 @@
+exports[`app/components/Record should render 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  hasTVPreferredFocus={undefined}
+  hitSlop={undefined}
+  isTVSelectable={true}
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "transparent",
+      },
+      Array [
+        Object {
+          "alignSelf": "stretch",
+          "backgroundColor": "#EEEEEE",
+          "flexGrow": 1,
+          "height": 300,
+          "marginHorizontal": 25,
+          "position": "absolute",
+          "shadowColor": "black",
+          "shadowOpacity": 0.3,
+          "transform": Array [
+            Object {
+              "perspective": 1000,
+            },
+          ],
+          "width": 700,
+        },
+        undefined,
+        Object {
+          "transform": Array [
+            Object {
+              "perspective": Object {
+                "interpolate": [Function],
+                "setValue": [Function],
+              },
+            },
+            Object {
+              "rotateX": undefined,
+            },
+            Object {
+              "translateY": Object {
+                "interpolate": [Function],
+                "setValue": [Function],
+              },
+            },
+          ],
+        },
+      ],
+    ]
+  }
+  testID={undefined}
+  tvParallaxProperties={undefined}>
+  <Image
+    resizeMode="stretch"
+    source={
+      Object {
+        "uri": "https://some-record-url/cover.png",
+      }
+    }
+    style={
+      Object {
+        "flex": 1,
+      }
+    } />
+</View>
+`;

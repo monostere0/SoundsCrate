@@ -25,6 +25,7 @@
     "eslint-plugin-react-native": "^2.3.2",
     "flow-bin": "^0.42.0",
     "jest": "17.0.3",
+    "react-devtools": "^2.5.0",
     "react-test-renderer": "16.0.0-alpha.12"
   },
   "jest": {

@@ -54,7 +54,10 @@ export async function getCollectionFolders(): Promise<Array<Folder>> {
   }));
 }
 
-async function getCollectionFolderPage(folderId: string, pageNumber: number, recordsPerPage?: number): Promise<FolderPage> {
+async function getCollectionFolderPage(
+  folderId: string,
+  pageNumber: number,
+  recordsPerPage?: number): Promise<FolderPage> {
   const {
     discogs: {
       api_url: apiUrl,

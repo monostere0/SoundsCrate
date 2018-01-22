@@ -16,7 +16,7 @@ jest.mock('react-native', () => ({
       global.setTimeout(() => fn({url:'oauth_token_secret=foo&oauth_token=bar'}));
     }),
     removeEventListener: jest.fn(),
-    canOpenURL: jest.fn(() => Promise.resolve()),
+    canOpenURL: jest.fn(() => Promise.resolve(true)),
     openURL: jest.fn(),
   },
 }));
@@ -32,7 +32,7 @@ beforeEach(() => {
 
 describe('app/lib/oauth', () => {
   it('should try to do an oAuthFetch if the token is set', async () => {
-    AsyncStorage.getItem.mockImplementation(() => { 
+    AsyncStorage.getItem.mockImplementation(() => {
       return Promise.resolve('{ "oauth_token": "foo", "oauth_token_secret": "bar" }');
     });
     await secureFetch('http://www.foo.bar', {});
@@ -42,13 +42,16 @@ describe('app/lib/oauth', () => {
     expect(Linking.canOpenURL).not.toHaveBeenCalled();
     expect(Linking.openURL).not.toHaveBeenCalled();
   });
-  xit('should start the oauth flow if the token is not set', async () => {
-    AsyncStorage.getItem.mockImplementation(() => { 
+  it('should start the oauth flow if the token is not set, and store the token', async () => {
+    AsyncStorage.getItem.mockImplementation(() => {
       return Promise.resolve('{}');
     });
     await secureFetch('http://www.foo.bar', {});
     expect(AsyncStorage.getItem).toHaveBeenCalledWith('@SoundsCrate:oauthToken');
-    expect(AsyncStorage.setItem).toHaveBeenCalled();
+    expect(AsyncStorage.setItem).toHaveBeenCalledWith(
+        '@SoundsCrate:oauthToken',
+        '{"oauth_token":"bar","oauth_token_secret":"foo"}'
+    );
     expect(Linking.addEventListener).toHaveBeenCalled();
     expect(Linking.canOpenURL).toHaveBeenCalled();
     expect(Linking.openURL).toHaveBeenCalled();

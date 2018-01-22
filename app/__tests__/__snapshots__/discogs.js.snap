@@ -1,0 +1,57 @@
+exports[`app/discogs getCollectionFolder() 1`] = `
+Array [
+  Array [
+    "http://foo-api.com/identity/",
+  ],
+  Array [
+    "http://foo-api.com/foobar/1/?per_page=5&page=1",
+  ],
+]
+`;
+
+exports[`app/discogs getCollectionFolder() 2`] = `
+Object {
+  "records": Array [
+    "http://foo-api.com/images/bar.jpg",
+  ],
+  "totalPages": 1,
+}
+`;
+
+exports[`app/discogs getCollectionFolders() 1`] = `
+Array [
+  Array [
+    "http://foo-api.com/identity/",
+  ],
+  Array [
+    "http://foo-api.com/foobar/",
+  ],
+]
+`;
+
+exports[`app/discogs getCollectionFolders() 2`] = `
+Array [
+  Object {
+    "count": 3,
+    "id": 1,
+    "name": "Foo",
+  },
+]
+`;
+
+exports[`app/discogs getThumbsInFolder() 1`] = `
+Array [
+  Array [
+    "http://foo-api.com/identity/",
+  ],
+  Array [
+    "http://foo-api.com/foobar/1/?per_page=4&page=1",
+  ],
+]
+`;
+
+exports[`app/discogs getThumbsInFolder() 2`] = `
+Array [
+  "http://foo-api.com/images/bar.jpg",
+]
+`;

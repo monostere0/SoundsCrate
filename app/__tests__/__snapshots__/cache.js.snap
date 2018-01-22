@@ -1,0 +1,32 @@
+exports[`app/cache should cache by page 1`] = `
+Object {
+  "records": Array [
+    "foo",
+    "bar",
+    "baz",
+  ],
+  "totalPages": 2,
+}
+`;
+
+exports[`app/cache should cache by page 2`] = `
+Object {
+  "records": Array [
+    "some",
+    "cached",
+    "data",
+  ],
+  "totalPages": 2,
+}
+`;
+
+exports[`app/cache should update the cache with an entry 1`] = `
+Object {
+  "records": Array [
+    "foo",
+    "bar",
+    "baz",
+  ],
+  "totalPages": 2,
+}
+`;

@@ -2,8 +2,8 @@
 export default {
   discogs: {
     oauth: {
-      key: 'WieOJMYurdVQKBkKEwLM',
-      secret: 'FarETUZNWCIBSQraJlbGzQgXEogVplMC',
+      key: 'YOUR_CONSUMER_KEY',
+      secret: 'YOUR_CONSUMER_SECRET',
       request_token_url: 'https://api.discogs.com/oauth/request_token',
       authorize_url: 'https://discogs.com/oauth/authorize?oauth_token=',
       access_token_url: 'https://api.discogs.com/oauth/access_token',

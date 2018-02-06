@@ -1,0 +1,109 @@
+exports[`app/components/FolderButton should render 1`] = `
+<View
+  style={
+    Object {
+      "borderBottomColor": "#ccc",
+      "borderBottomWidth": 1,
+      "flex": 1,
+      "height": 100,
+    }
+  }>
+  <View
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "flex": 1,
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "flex-start",
+        "opacity": 0.7,
+      }
+    }>
+    <Image
+      source={
+        Object {
+          "url": "foo",
+        }
+      }
+      style={
+        Object {
+          "flex": 1,
+          "height": 100,
+          "width": 50,
+        }
+      } />
+    <Image
+      source={
+        Object {
+          "url": "bar",
+        }
+      }
+      style={
+        Object {
+          "flex": 1,
+          "height": 100,
+          "width": 50,
+        }
+      } />
+  </View>
+  <TouchableOpacity
+    onPress={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "bottom": 0,
+        "justifyContent": "center",
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "zIndex": 1,
+      }
+    }
+    testID="folderButton">
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        disabled={false}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "fontSize": 25,
+            "fontWeight": "bold",
+            "padding": 5,
+          }
+        }>
+        foo
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "justifyContent": "center",
+          }
+        }>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          disabled={false}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "fontSize": 15,
+              "paddingVertical": 12,
+            }
+          }>
+          2
+            
+        </Text>
+      </View>
+    </View>
+  </TouchableOpacity>
+</View>
+`;

@@ -31,6 +31,7 @@ class FolderButton extends Component {
           ))}
         </View>
         <TouchableOpacity
+          testID={'folderButton'}
           style={styles.folderTouchable}
           onPress={() => this.openFolder(folder.id)}>
           <View style={styles.folderTextWrapper}>

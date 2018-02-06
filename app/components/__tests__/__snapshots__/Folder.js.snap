@@ -1,0 +1,147 @@
+exports[`app/components/Folder should render 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }>
+  <ScrollView
+    contentContainerStyle={
+      Array [
+        Object {
+          "alignItems": "flex-start",
+          "backgroundColor": "#EEEEEE",
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 154,
+        },
+      ]
+    }
+    onScroll={[Function]}
+    scrollEventThrottle={2}
+    style={
+      Array [
+        undefined,
+        Object {
+          "height": 154,
+        },
+      ]
+    }>
+    <Record
+      canBeShown={true}
+      cover="foo"
+      isLast={false}
+      listYPosition={0}
+      maxYPosition={154}
+      onHide={[Function]}
+      onShow={[Function]}
+      style={
+        Object {
+          "top": 10,
+          "zIndex": 1,
+        }
+      } />
+    <Record
+      canBeShown={true}
+      cover="bar"
+      isLast={true}
+      listYPosition={0}
+      maxYPosition={154}
+      onHide={[Function]}
+      onShow={[Function]}
+      style={
+        Object {
+          "top": 70,
+          "zIndex": 2,
+        }
+      } />
+  </ScrollView>
+</View>
+`;
+
+exports[`app/components/Folder should render loading state if prop passed 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }>
+  <ScrollView
+    contentContainerStyle={
+      Array [
+        Object {
+          "alignItems": "flex-start",
+          "backgroundColor": "#EEEEEE",
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 154,
+        },
+      ]
+    }
+    onScroll={[Function]}
+    scrollEventThrottle={2}
+    style={
+      Array [
+        undefined,
+        Object {
+          "height": 154,
+        },
+      ]
+    }>
+    <Record
+      canBeShown={true}
+      cover="foo"
+      isLast={false}
+      listYPosition={0}
+      maxYPosition={154}
+      onHide={[Function]}
+      onShow={[Function]}
+      style={
+        Object {
+          "top": 10,
+          "zIndex": 1,
+        }
+      } />
+    <Record
+      canBeShown={true}
+      cover="bar"
+      isLast={true}
+      listYPosition={0}
+      maxYPosition={154}
+      onHide={[Function]}
+      onShow={[Function]}
+      style={
+        Object {
+          "top": 70,
+          "zIndex": 2,
+        }
+      } />
+  </ScrollView>
+  <LoadingIndicator
+    isOverlay={true} />
+</View>
+`;
+
+exports[`app/components/Folder should render loading state if there are no records 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }>
+  <LoadingIndicator />
+</View>
+`;
+
+exports[`app/components/Folder should render only one loading state if prop passed and there are no records 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }>
+  <LoadingIndicator />
+</View>
+`;

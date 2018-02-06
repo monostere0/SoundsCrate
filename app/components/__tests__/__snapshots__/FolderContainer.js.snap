@@ -1,0 +1,7 @@
+exports[`app/components/FolderContainer should render and call discogs.getCollectionFolder 1`] = `
+<Folder
+  isLoading={true}
+  onScrollEnd={[Function]}
+  records={Array []}
+  totalPages={1} />
+`;

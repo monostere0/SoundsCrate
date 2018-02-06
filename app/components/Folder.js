@@ -71,7 +71,7 @@ export default class Folder extends Component {
               style={{ zIndex, top }}/>);
           })}
         </ScrollView>}
-        {isLoading && <LoadingIndicator isOverlay />}
+        {(isLoading && areRecordsAvailable) && <LoadingIndicator isOverlay />}
       </View>
     );
   }

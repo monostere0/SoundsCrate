@@ -1,9 +1,10 @@
 /* @flow */
+import { S_CONSUMER_KEY, S_CONSUMER_SECRET } from 'react-native-dotenv';
 export default {
   discogs: {
     oauth: {
-      key: 'YOUR_CONSUMER_KEY',
-      secret: 'YOUR_CONSUMER_SECRET',
+      key: S_CONSUMER_KEY,
+      secret: S_CONSUMER_SECRET,
       request_token_url: 'https://api.discogs.com/oauth/request_token',
       authorize_url: 'https://discogs.com/oauth/authorize?oauth_token=',
       access_token_url: 'https://api.discogs.com/oauth/access_token',

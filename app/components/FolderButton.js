@@ -1,5 +1,6 @@
 /* @flow */
 import React, { Component } from 'react';
+import { withNavigation } from 'react-navigation';
 import {
   TouchableOpacity,
   Image,
@@ -7,25 +8,18 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import { getThumbsInFolder } from '../discogs';
 import type { Folder } from '../discogsTypes';
 
 type Props = {
   folder: Folder,
-  onPress: (id: string) => void
+  thumbnails: Array<string>
 };
 
-export default class FolderButton extends Component {
+class FolderButton extends Component {
   props: Props;
-  state: { thumbnails: Array<string> } = { thumbnails: [] };
-
-  componentWillMount() {
-    this.getFolderThumbs();
-  }
 
   render(): React.Element<*> {
-    const { folder } = this.props;
-    const { thumbnails } = this.state;
+    const { folder, thumbnails } = this.props;
     return (
       <View style={styles.folderContainer}>
         <View style={styles.thumbsContainer}>
@@ -37,23 +31,27 @@ export default class FolderButton extends Component {
           ))}
         </View>
         <TouchableOpacity
+          testID={'folderButton'}
           style={styles.folderTouchable}
-          onPress={() => this.props.onPress(folder.id)}>
+          onPress={() => this.openFolder(folder.id)}>
           <View style={styles.folderTextWrapper}>
             <Text style={styles.folderText}>{folder.name}</Text>
-            <View style={styles.textCountWrapper}><Text style={styles.folderTextCount}>{folder.count}  </Text></View>
+            <View style={styles.textCountWrapper}>
+              <Text style={styles.folderTextCount}>{folder.count}  </Text>
+            </View>
           </View>
         </TouchableOpacity>
       </View>
     );
   }
 
-  async getFolderThumbs(): Promise<*> {
-    const { id, count } = this.props.folder;
-    const thumbs = await getThumbsInFolder(id, Math.min(count, 4));
-    this.setState({ thumbnails: thumbs });
+  openFolder(id: string) {
+    const { navigate } = this.props.navigation;
+    navigate('Folder', { id });
   }
 }
+
+export default withNavigation(FolderButton);
 
 const styles = StyleSheet.create({
   folderContainer: {

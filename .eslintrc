@@ -37,6 +37,8 @@
     "react-native/split-platform-components": 2,
     "react-native/no-inline-styles": 2,
     "react-native/no-color-literals": 0,
+    "no-unused-vars": [2, {"vars": "all", "args": "none"}],
+    "react/jsx-uses-vars": ["error"]
   },
   "settings": {
     "flowtype": {

@@ -2,11 +2,11 @@
 import { AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
-import Folders from './app/components/Folders';
+import FoldersContainer from './app/components/FoldersContainer';
 import FolderContainer from './app/components/FolderContainer';
 
 const SoundsCrateApp = StackNavigator({
-  Folders: { screen: Folders },
+  Folders: { screen: FoldersContainer },
   Folder: {
     path: 'folder/:id',
     screen: FolderContainer,

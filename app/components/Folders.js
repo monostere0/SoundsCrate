@@ -1,56 +1,32 @@
 /* @flow */
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  Dimensions,
-  Image,
   ScrollView,
   StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
 } from 'react-native';
-import { getCollectionFolders } from '../discogs';
 import LoadingIndicator from './LoadingIndicator';
-import FolderButton from './FolderButton';
+import FolderButtonContainer from './FolderButtonContainer';
 
 import type { Folder } from '../discogsTypes';
 
-type State = { folders: Array<Folder> };
+type Props = { folders: Array<Folder> };
 
-export default class Folders extends Component {
-  state: State = { folders: [] }
-
-  componentWillMount() {
-    this.getFolders();
-  }
-
-  render(): React.Element<*> {
-    const { folders } = this.state;
-    const isLoading = !Boolean(folders.length);
-    const contentContainerStyle = isLoading ? styles.root : styles.noFlex;
-    return (
-      <ScrollView style={styles.root} contentContainerStyle={contentContainerStyle}>
-        {isLoading && <LoadingIndicator/>}
-        {!isLoading && folders.map((folder: Folder, index: number) => (
-          <FolderButton
-            key={index}
-            folder={folder}
-            onPress={() => this.openFolder(folder.id)}/>
-        ))}
-      </ScrollView>
-    )
-  }
-
-  openFolder(id: string) {
-    const { navigate } = this.props.navigation;
-    navigate('Folder', { id });
-  }
-
-  async getFolders(): Promise<*> {
-    const folders = await getCollectionFolders();
-    this.setState({ folders });
-  }
+export default function Folders(props: Props): React.Element<*> {
+  const { folders } = props;
+  const isLoading = !Boolean(folders.length);
+  const contentContainerStyle = isLoading ? styles.root : styles.noFlex;
+  return (
+    <ScrollView style={styles.root} contentContainerStyle={contentContainerStyle}>
+      {isLoading && <LoadingIndicator/>}
+      {!isLoading && folders.map((folder: Folder, index: number) => (
+        <FolderButtonContainer
+          key={index}
+          folder={folder}/>
+      ))}
+    </ScrollView>
+  );
 }
+Folders.defaultProps = { folders: [] };
 
 const styles = StyleSheet.create({
   root: {

@@ -2,7 +2,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Folders from '../Folders';
-import { getCollectionFolders } from '../../discogs';
 
 jest.mock('../../discogs', () => ({
   __esModule: true,
@@ -10,21 +9,15 @@ jest.mock('../../discogs', () => ({
 }));
 jest.mock('../LoadingIndicator', () => 'LoadingIndicator');
 jest.mock('TouchableHighlight', () => 'TouchableHighlight');
+jest.mock('../FolderButtonContainer', () => 'FolderButtonContainer');
 
 describe('app/components/Folders', () => {
-  it('should render a loader if there is no data', async () => {
-    // $FlowFixMe
-    getCollectionFolders.mockImplementationOnce(() => Promise.resolve([]));
-    const tree = await renderer.create(<Folders />);
+  it('should render a loader if there is no data', () => {
+    const tree = renderer.create(<Folders folders={[]} />);
     expect(tree).toMatchSnapshot();
   });
-  it('should render a list of TouchableHighlights if there is data', async () => {
-    // $FlowFixMe
-    getCollectionFolders.mockImplementationOnce(() => Promise.resolve([
-      {id: 1, name: 'foo'},
-      {id: 2, name: 'bar'},
-    ]));
-    const tree = await renderer.create(<Folders />);
+  it('should render a list of TouchableHighlights if there is data', () => {
+    const tree = renderer.create(<Folders folders={[{id: 1, name: 'foo'}, {id: 2, name: 'bar'}]} />);
     expect(tree).toMatchSnapshot();
   });
 });

@@ -1,0 +1,11 @@
+exports[`app/components/FolderButtonContainer should render and call discogs.getThumbsInFolder 1`] = `
+<FolderButton
+  folder={
+    Object {
+      "count": 2,
+      "id": 1,
+      "name": "foo",
+    }
+  }
+  thumbnails={undefined} />
+`;

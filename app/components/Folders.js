@@ -1,38 +1,29 @@
 /* @flow */
 import React, { Component } from 'react';
 import {
-  Dimensions,
-  Image,
   ScrollView,
   StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
 } from 'react-native';
-import { getCollectionFolders } from '../discogs';
 import LoadingIndicator from './LoadingIndicator';
-import FolderButton from './FolderButton';
+import FolderButtonContainer from './FolderButtonContainer';
 
 import type { Folder } from '../discogsTypes';
 
-type State = { folders: Array<Folder> };
+type Props = { folders: Array<Folder> };
 
 export default class Folders extends Component {
-  state: State = { folders: [] }
-
-  componentWillMount() {
-    this.getFolders();
-  }
+  static defaultProps = { folders: [] };
+  props: Props;
 
   render(): React.Element<*> {
-    const { folders } = this.state;
+    const { folders } = this.props;
     const isLoading = !Boolean(folders.length);
     const contentContainerStyle = isLoading ? styles.root : styles.noFlex;
     return (
       <ScrollView style={styles.root} contentContainerStyle={contentContainerStyle}>
         {isLoading && <LoadingIndicator/>}
         {!isLoading && folders.map((folder: Folder, index: number) => (
-          <FolderButton
+          <FolderButtonContainer
             key={index}
             folder={folder}
             onPress={() => this.openFolder(folder.id)}/>
@@ -44,11 +35,6 @@ export default class Folders extends Component {
   openFolder(id: string) {
     const { navigate } = this.props.navigation;
     navigate('Folder', { id });
-  }
-
-  async getFolders(): Promise<*> {
-    const folders = await getCollectionFolders();
-    this.setState({ folders });
   }
 }
 

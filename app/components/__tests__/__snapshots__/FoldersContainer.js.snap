@@ -1,0 +1,4 @@
+exports[`app/components/FoldersContainer should retrieve the data and display the Folders component 1`] = `
+<Folders
+  folders={undefined} />
+`;

@@ -28,7 +28,7 @@ export default class FolderContainer extends Component {
     isLazyLoading: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.getCollectionFolder(this.state.currentPage);
   }
 

@@ -1,5 +1,5 @@
 /* @flow */
-import React, { Component } from 'react';
+import React from 'react';
 import {
   TouchableOpacity,
   Image,
@@ -7,52 +7,36 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import { getThumbsInFolder } from '../discogs';
 import type { Folder } from '../discogsTypes';
 
 type Props = {
   folder: Folder,
+  thumbnails: Array<string>,
   onPress: (id: string) => void
 };
 
-export default class FolderButton extends Component {
-  props: Props;
-  state: { thumbnails: Array<string> } = { thumbnails: [] };
-
-  componentWillMount() {
-    this.getFolderThumbs();
-  }
-
-  render(): React.Element<*> {
-    const { folder } = this.props;
-    const { thumbnails } = this.state;
-    return (
-      <View style={styles.folderContainer}>
-        <View style={styles.thumbsContainer}>
-          {thumbnails.map((thumb, index) => (
-            <Image
-              key={index}
-              style={styles.folderThumb}
-              source={{ url: thumb }} />
-          ))}
-        </View>
-        <TouchableOpacity
-          style={styles.folderTouchable}
-          onPress={() => this.props.onPress(folder.id)}>
-          <View style={styles.folderTextWrapper}>
-            <Text style={styles.folderText}>{folder.name}</Text>
-            <View style={styles.textCountWrapper}><Text style={styles.folderTextCount}>{folder.count}  </Text></View>
-          </View>
-        </TouchableOpacity>
+export default function FolderButton(props: Props): React.Element<*> {
+  const { folder, thumbnails, onPress } = props;
+  return (
+    <View style={styles.folderContainer}>
+      <View style={styles.thumbsContainer}>
+        {thumbnails.map((thumb, index) => (
+          <Image
+            key={index}
+            style={styles.folderThumb}
+            source={{ url: thumb }} />
+        ))}
       </View>
-    );
-  }
-
-  async getFolderThumbs(): Promise<*> {
-    const { id, count } = this.props.folder;
-    const thumbs = await getThumbsInFolder(id, Math.min(count, 4));
-    this.setState({ thumbnails: thumbs });
-  }
+      <TouchableOpacity
+        style={styles.folderTouchable}
+        onPress={() => onPress(folder.id)}>
+        <View style={styles.folderTextWrapper}>
+          <Text style={styles.folderText}>{folder.name}</Text>
+          <View style={styles.textCountWrapper}><Text style={styles.folderTextCount}>{folder.count}  </Text></View>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

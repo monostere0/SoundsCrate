@@ -35,7 +35,9 @@ class FolderButton extends Component {
           onPress={() => this.openFolder(folder.id)}>
           <View style={styles.folderTextWrapper}>
             <Text style={styles.folderText}>{folder.name}</Text>
-            <View style={styles.textCountWrapper}><Text style={styles.folderTextCount}>{folder.count}  </Text></View>
+            <View style={styles.textCountWrapper}>
+              <Text style={styles.folderTextCount}>{folder.count}  </Text>
+            </View>
           </View>
         </TouchableOpacity>
       </View>

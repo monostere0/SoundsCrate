@@ -11,196 +11,20 @@ exports[`app/components/Folders should render a list of TouchableHighlights if t
     }
   }>
   <View>
-    <View
-      style={
+    <FolderButtonContainer
+      folder={
         Object {
-          "borderBottomColor": "#ccc",
-          "borderBottomWidth": 1,
-          "flex": 1,
-          "height": 100,
+          "id": 1,
+          "name": "foo",
         }
-      }>
-      <View
-        style={
-          Object {
-            "alignItems": "flex-start",
-            "flex": 1,
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "flex-start",
-            "opacity": 0.7,
-          }
-        } />
-      <View
-        accessibilityComponentType={undefined}
-        accessibilityLabel={undefined}
-        accessibilityTraits={undefined}
-        accessible={true}
-        collapsable={undefined}
-        hitSlop={undefined}
-        isTVSelectable={true}
-        nativeID={undefined}
-        onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "bottom": 0,
-            "justifyContent": "center",
-            "left": 0,
-            "opacity": 1,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-            "zIndex": 1,
-          }
-        }
-        testID={undefined}
-        tvParallaxProperties={undefined}>
-        <View
-          style={
-            Object {
-              "flexDirection": "row",
-            }
-          }>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            disabled={false}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "fontSize": 25,
-                "fontWeight": "bold",
-                "padding": 5,
-              }
-            }>
-            foo
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "justifyContent": "center",
-              }
-            }>
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              disabled={false}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "fontSize": 15,
-                  "paddingVertical": 12,
-                }
-              }>
-                
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-    <View
-      style={
+      } />
+    <FolderButtonContainer
+      folder={
         Object {
-          "borderBottomColor": "#ccc",
-          "borderBottomWidth": 1,
-          "flex": 1,
-          "height": 100,
+          "id": 2,
+          "name": "bar",
         }
-      }>
-      <View
-        style={
-          Object {
-            "alignItems": "flex-start",
-            "flex": 1,
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "flex-start",
-            "opacity": 0.7,
-          }
-        } />
-      <View
-        accessibilityComponentType={undefined}
-        accessibilityLabel={undefined}
-        accessibilityTraits={undefined}
-        accessible={true}
-        collapsable={undefined}
-        hitSlop={undefined}
-        isTVSelectable={true}
-        nativeID={undefined}
-        onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "bottom": 0,
-            "justifyContent": "center",
-            "left": 0,
-            "opacity": 1,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-            "zIndex": 1,
-          }
-        }
-        testID={undefined}
-        tvParallaxProperties={undefined}>
-        <View
-          style={
-            Object {
-              "flexDirection": "row",
-            }
-          }>
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            disabled={false}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "fontSize": 25,
-                "fontWeight": "bold",
-                "padding": 5,
-              }
-            }>
-            bar
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "justifyContent": "center",
-              }
-            }>
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              disabled={false}
-              ellipsizeMode="tail"
-              style={
-                Object {
-                  "fontSize": 15,
-                  "paddingVertical": 12,
-                }
-              }>
-                
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
+      } />
   </View>
 </RCTScrollView>
 `;

@@ -12,7 +12,7 @@ import type { Folder } from '../discogsTypes';
 type Props = { folders: Array<Folder> };
 
 export default function Folders(props: Props): React.Element<*> {
-  const { folders } = this.props;
+  const { folders } = props;
   const isLoading = !Boolean(folders.length);
   const contentContainerStyle = isLoading ? styles.root : styles.noFlex;
   return (

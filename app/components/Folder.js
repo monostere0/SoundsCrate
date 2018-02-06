@@ -2,26 +2,24 @@
 import React, { Component } from 'react';
 import {
   Dimensions,
-  Image,
   ScrollView,
   StyleSheet,
-  Text,
-  TouchableHighlight,
   View,
 } from 'react-native';
 import _ from 'lodash';
 import Record, { ANIMATION_DURATION } from './Record';
+import LoadingIndicator from './LoadingIndicator';
 import constants from '../constants';
 
 const RECORD_HEIGHT_SPACE = 77;
 const RECORD_TOP_SPACE = 70;
 const FIRST_RECORD_TOP_SPACE = 10;
-const SCROLL_THRESHOLD_MARGIN = 100;
 const RECORD_SCROLL_DIFF_THRESHOLD = 162;
 
 type Props = {
   records: Array<string>,
   totalPages: number,
+  isLoading: boolean,
   onScrollEnd: () => void
 };
 
@@ -33,7 +31,6 @@ type State = {
 export default class Folder extends Component {
   static defaultProps = { onScrollEnd: () => {} };
   state: State = {
-    records: [],
     recordShown: false,
     yPosition: 0,
   };
@@ -47,37 +44,41 @@ export default class Folder extends Component {
   }
 
   render(): React.Element<*> {
-    const { records } = this.props;
+    const { records, isLoading } = this.props;
     const height = records.length * RECORD_HEIGHT_SPACE;
+    const areRecordsAvailable = Boolean(records.length);
     return (
-      <ScrollView
-        style={[styles.crate, { height }]}
-        onScroll={(event: any) => this.onScroll(event)}
-        ref={(ref: React.Element<*>) => this.scrollViewRef = ref}
-        scrollEventThrottle={2}
-        contentContainerStyle={[styles.container, { height }]}>
-        {records.map((image: string, i: number) => {
-          const zIndex = i + 1;
-          const top = !i ? FIRST_RECORD_TOP_SPACE : i * RECORD_TOP_SPACE;
-          return (<Record
-            onShow={() => this.onRecordShow(top)}
-            onHide={() => this.onRecordHide()}
-            canBeShown={!this.state.recordShown}
-            listYPosition={this.state.yPosition}
-            maxYPosition={height}
-            cover={image}
-            isLast={i === records.length - 1}
-            key={i}
-            style={{ zIndex, top }}/>);
-        })}
-      </ScrollView>
+      <View style={styles.root}>
+        {!areRecordsAvailable && <LoadingIndicator/>}
+        {areRecordsAvailable && <ScrollView
+          style={[styles.crate, { height }]}
+          onScroll={(event: any) => this.onScroll(event)}
+          ref={(ref: React.Element<*>) => this.scrollViewRef = ref}
+          scrollEventThrottle={2}
+          contentContainerStyle={[styles.container, { height }]}>
+          {records.map((image: string, i: number) => {
+            const zIndex = i + 1;
+            const top = !i ? FIRST_RECORD_TOP_SPACE : i * RECORD_TOP_SPACE;
+            return (<Record
+              onShow={() => this.onRecordShow(top)}
+              onHide={() => this.onRecordHide()}
+              canBeShown={!this.state.recordShown}
+              listYPosition={this.state.yPosition}
+              maxYPosition={height}
+              cover={image}
+              isLast={i === records.length - 1}
+              key={i}
+              style={{ zIndex, top }}/>);
+          })}
+        </ScrollView>}
+        {isLoading && <LoadingIndicator isOverlay />}
+      </View>
     );
   }
 
   onScroll(event: any) {
-    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+    const { contentOffset, contentSize } = event.nativeEvent;
     const { y: yPosition } = contentOffset;
-    const maxScrollHeight = contentSize.height - layoutMeasurement.height;
     const isBottomReached = yPosition + Dimensions.get('window').height >= contentSize.height;
     const shouldLazyLoad = this.props.totalPages > 1;
     if (shouldLazyLoad && isBottomReached) {
@@ -103,6 +104,7 @@ export default class Folder extends Component {
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1 },
   container: {
     justifyContent: 'center',
     alignItems: 'flex-start',

@@ -1,17 +1,7 @@
 /* @flow */
 import React, { Component } from 'react';
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from 'react-native';
-import record from './assets/record.png';
 import { getCollectionFolder } from '../discogs';
 import Folder from './Folder';
-import LoadingIndicator from './LoadingIndicator';
 
 type State = {
   records: Array<string>,
@@ -35,14 +25,11 @@ export default class FolderContainer extends Component {
   render(): React.Element<*> {
     const { records, totalPages, isLazyLoading } = this.state;
     return (
-      <View style={styles.root}>
-        {!Boolean(records.length) && <LoadingIndicator/>}
-        {Boolean(records.length) && <Folder
-          records={records}
-          totalPages={totalPages}
-          onScrollEnd={() => this.onFolderScrollEnd()}/>}
-        {isLazyLoading && <LoadingIndicator isOverlay />}
-      </View>
+      <Folder
+        isLoading={isLazyLoading}
+        records={records}
+        totalPages={totalPages}
+        onScrollEnd={() => this.onFolderScrollEnd()}/>
     );
   }
 
@@ -74,7 +61,3 @@ export default class FolderContainer extends Component {
     });
   }
 }
-
-const styles = StyleSheet.create({
-  root: { flex: 1 },
-});

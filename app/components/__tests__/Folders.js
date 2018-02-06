@@ -9,6 +9,7 @@ jest.mock('../../discogs', () => ({
 }));
 jest.mock('../LoadingIndicator', () => 'LoadingIndicator');
 jest.mock('TouchableHighlight', () => 'TouchableHighlight');
+jest.mock('../FolderButtonContainer', () => 'FolderButtonContainer');
 
 describe('app/components/Folders', () => {
   it('should render a loader if there is no data', () => {

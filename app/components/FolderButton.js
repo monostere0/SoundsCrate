@@ -1,5 +1,6 @@
 /* @flow */
-import React from 'react';
+import React, { Component } from 'react';
+import { withNavigation } from 'react-navigation';
 import {
   TouchableOpacity,
   Image,
@@ -11,33 +12,43 @@ import type { Folder } from '../discogsTypes';
 
 type Props = {
   folder: Folder,
-  thumbnails: Array<string>,
-  onPress: (id: string) => void
+  thumbnails: Array<string>
 };
 
-export default function FolderButton(props: Props): React.Element<*> {
-  const { folder, thumbnails, onPress } = props;
-  return (
-    <View style={styles.folderContainer}>
-      <View style={styles.thumbsContainer}>
-        {thumbnails.map((thumb, index) => (
-          <Image
-            key={index}
-            style={styles.folderThumb}
-            source={{ url: thumb }} />
-        ))}
-      </View>
-      <TouchableOpacity
-        style={styles.folderTouchable}
-        onPress={() => onPress(folder.id)}>
-        <View style={styles.folderTextWrapper}>
-          <Text style={styles.folderText}>{folder.name}</Text>
-          <View style={styles.textCountWrapper}><Text style={styles.folderTextCount}>{folder.count}  </Text></View>
+class FolderButton extends Component {
+  props: Props;
+
+  render(): React.Element<*> {
+    const { folder, thumbnails } = this.props;
+    return (
+      <View style={styles.folderContainer}>
+        <View style={styles.thumbsContainer}>
+          {thumbnails.map((thumb, index) => (
+            <Image
+              key={index}
+              style={styles.folderThumb}
+              source={{ url: thumb }} />
+          ))}
         </View>
-      </TouchableOpacity>
-    </View>
-  );
+        <TouchableOpacity
+          style={styles.folderTouchable}
+          onPress={() => this.openFolder(folder.id)}>
+          <View style={styles.folderTextWrapper}>
+            <Text style={styles.folderText}>{folder.name}</Text>
+            <View style={styles.textCountWrapper}><Text style={styles.folderTextCount}>{folder.count}  </Text></View>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  openFolder(id: string) {
+    const { navigate } = this.props.navigation;
+    navigate('Folder', { id });
+  }
 }
+
+export default withNavigation(FolderButton);
 
 const styles = StyleSheet.create({
   folderContainer: {

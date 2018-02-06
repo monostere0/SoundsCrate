@@ -4,10 +4,7 @@ import { getThumbsInFolder } from '../discogs';
 import type { Folder } from '../discogsTypes';
 import FolderButton from './FolderButton'
 
-type Props = {
-  folder: Folder,
-  onPress: (id: string) => void
-};
+type Props = { folder: Folder };
 
 export default class FolderButtonContainer extends Component {
   props: Props;
@@ -18,13 +15,12 @@ export default class FolderButtonContainer extends Component {
   }
 
   render(): React.Element<*> {
-    const { folder, onPress } = this.props;
+    const { folder } = this.props;
     const { thumbnails } = this.state;
     return (
       <FolderButton
         folder={folder}
-        thumbnails={thumbnails}
-        onPress={onPress}/>
+        thumbnails={thumbnails}/>
     );
   }
 

@@ -1,10 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`app/components/Folder should render 1`] = `
 <View
   style={
     Object {
       "flex": 1,
     }
-  }>
+  }
+>
   <ScrollView
     contentContainerStyle={
       Array [
@@ -27,7 +30,8 @@ exports[`app/components/Folder should render 1`] = `
           "height": 154,
         },
       ]
-    }>
+    }
+  >
     <Record
       canBeShown={true}
       cover="foo"
@@ -41,7 +45,8 @@ exports[`app/components/Folder should render 1`] = `
           "top": 10,
           "zIndex": 1,
         }
-      } />
+      }
+    />
     <Record
       canBeShown={true}
       cover="bar"
@@ -55,7 +60,8 @@ exports[`app/components/Folder should render 1`] = `
           "top": 70,
           "zIndex": 2,
         }
-      } />
+      }
+    />
   </ScrollView>
 </View>
 `;
@@ -66,7 +72,8 @@ exports[`app/components/Folder should render loading state if prop passed 1`] = 
     Object {
       "flex": 1,
     }
-  }>
+  }
+>
   <ScrollView
     contentContainerStyle={
       Array [
@@ -89,7 +96,8 @@ exports[`app/components/Folder should render loading state if prop passed 1`] = 
           "height": 154,
         },
       ]
-    }>
+    }
+  >
     <Record
       canBeShown={true}
       cover="foo"
@@ -103,7 +111,8 @@ exports[`app/components/Folder should render loading state if prop passed 1`] = 
           "top": 10,
           "zIndex": 1,
         }
-      } />
+      }
+    />
     <Record
       canBeShown={true}
       cover="bar"
@@ -117,10 +126,12 @@ exports[`app/components/Folder should render loading state if prop passed 1`] = 
           "top": 70,
           "zIndex": 2,
         }
-      } />
+      }
+    />
   </ScrollView>
   <LoadingIndicator
-    isOverlay={true} />
+    isOverlay={true}
+  />
 </View>
 `;
 
@@ -130,7 +141,8 @@ exports[`app/components/Folder should render loading state if there are no recor
     Object {
       "flex": 1,
     }
-  }>
+  }
+>
   <LoadingIndicator />
 </View>
 `;
@@ -141,7 +153,8 @@ exports[`app/components/Folder should render only one loading state if prop pass
     Object {
       "flex": 1,
     }
-  }>
+  }
+>
   <LoadingIndicator />
 </View>
 `;

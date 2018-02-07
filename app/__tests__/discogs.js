@@ -7,6 +7,7 @@ import {
 import { secureFetch } from '../lib/oauth';
 
 jest.mock('../lib/oauth', () => ({
+  __esModule: true,
   secureFetch: jest.fn(),
 }));
 jest.mock('../conf', () => ({
@@ -91,7 +92,7 @@ describe('app/discogs', () => {
         pagination: { pages: 1 },
       }),
     }));
-    
+
     const thumbs = await getThumbsInFolder(1);
     expect(secureFetch.mock.calls).toMatchSnapshot();
     expect(thumbs).toMatchSnapshot();

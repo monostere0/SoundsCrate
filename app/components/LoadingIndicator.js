@@ -14,14 +14,14 @@ const ANIMATION_DURATION = 500;
 
 type Props = { isOverlay?: boolean };
 
-export default class LoadingIndicator extends Component {
+export default class LoadingIndicator extends Component<Props, *> {
   needleAnimation: Animated.Value = new Animated.Value(0);
 
   componentDidMount() {
     this.animateNeedle();
   }
 
-  render(): React.Element<*> {
+  render(): React$Node {
     const rotate = this._getInterpolation('0deg', '-30deg');
     const recordRotate = this._getInterpolation('0deg', '360deg');
     const translateX = this._getInterpolation(0, 6);

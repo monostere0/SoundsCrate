@@ -16,7 +16,6 @@ const PERSPECTIVE_DEFAULT_VALUE = 1000;
 const PERSPECTIVE_ANIMATED_VALUE = 10000;
 export const ANIMATION_DURATION = 300;
 const ROTATE_X_DEFAULT_VALUE = -60;
-const ROTATE_X_ANIMATED_VALUE = 0;
 const PERSPECTIVE_MULTIPLY_FACTOR = 10;
 const MIN_PERSPECTIVE_VALUE = 120;
 
@@ -38,7 +37,7 @@ type State = {
   isShown: boolean
 };
 
-export default class Record extends Component {
+export default class Record extends Component<Props, State> {
   animatedPerspective: Animated.Value = new Animated.Value(1000);
   animatedRotateX: Animated.Value = new Animated.Value(-1);
   animatedTranslateY: Animated.Value = new Animated.Value(0);
@@ -56,7 +55,7 @@ export default class Record extends Component {
     this.animatedRotateX.setValue(ROTATE_X_DEFAULT_VALUE);
   }
 
-  render(): React.Element<*> {
+  render(): React$Node {
     const perspective = this.animatedPerspective;
     const translateY = this.animatedTranslateY;
     const rotateX = this.animatedRotateX.interpolate({
@@ -127,8 +126,9 @@ export default class Record extends Component {
   }
 
   _show(callback?: () => void) {
+    const { style: { top: positionTop } = {} } = this.props;
     this.props.onShow();
-    const multipledTop = Math.max(this.props.style.top, MIN_PERSPECTIVE_VALUE) * PERSPECTIVE_MULTIPLY_FACTOR;
+    const multipledTop = Math.max(positionTop, MIN_PERSPECTIVE_VALUE) * PERSPECTIVE_MULTIPLY_FACTOR;
     const perspectiveValue = Math.min(multipledTop, PERSPECTIVE_ANIMATED_VALUE);
     this.setState({ isShown: true });
     Animated.parallel([

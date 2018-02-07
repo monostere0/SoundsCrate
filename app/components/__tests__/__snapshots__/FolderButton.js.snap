@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`app/components/FolderButton should render 1`] = `
 <View
   style={
@@ -7,7 +9,8 @@ exports[`app/components/FolderButton should render 1`] = `
       "flex": 1,
       "height": 100,
     }
-  }>
+  }
+>
   <View
     style={
       Object {
@@ -18,7 +21,8 @@ exports[`app/components/FolderButton should render 1`] = `
         "justifyContent": "flex-start",
         "opacity": 0.7,
       }
-    }>
+    }
+  >
     <Image
       source={
         Object {
@@ -31,7 +35,8 @@ exports[`app/components/FolderButton should render 1`] = `
           "height": 100,
           "width": 50,
         }
-      } />
+      }
+    />
     <Image
       source={
         Object {
@@ -44,7 +49,8 @@ exports[`app/components/FolderButton should render 1`] = `
           "height": 100,
           "width": 50,
         }
-      } />
+      }
+    />
   </View>
   <TouchableOpacity
     onPress={[Function]}
@@ -60,17 +66,18 @@ exports[`app/components/FolderButton should render 1`] = `
         "zIndex": 1,
       }
     }
-    testID="folderButton">
+    testID="folderButton"
+  >
     <View
       style={
         Object {
           "flexDirection": "row",
         }
-      }>
+      }
+    >
       <Text
         accessible={true}
         allowFontScaling={true}
-        disabled={false}
         ellipsizeMode="tail"
         style={
           Object {
@@ -78,7 +85,8 @@ exports[`app/components/FolderButton should render 1`] = `
             "fontWeight": "bold",
             "padding": 5,
           }
-        }>
+        }
+      >
         foo
       </Text>
       <View
@@ -87,18 +95,19 @@ exports[`app/components/FolderButton should render 1`] = `
             "alignItems": "center",
             "justifyContent": "center",
           }
-        }>
+        }
+      >
         <Text
           accessible={true}
           allowFontScaling={true}
-          disabled={false}
           ellipsizeMode="tail"
           style={
             Object {
               "fontSize": 15,
               "paddingVertical": 12,
             }
-          }>
+          }
+        >
           2
             
         </Text>

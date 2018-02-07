@@ -7,14 +7,14 @@ import type { Folder } from '../discogsTypes';
 
 type State = { folders: Array<Folder> };
 
-export default class FoldersContainer extends Component {
+export default class FoldersContainer extends Component<*, State> {
   state: State = { folders: [] }
 
   componentDidMount() {
     this.getFolders();
   }
 
-  render(): React.Element<*> {
+  render(): React$Node {
     const { folders } = this.state;
     return (
       <Folders folders={folders} />

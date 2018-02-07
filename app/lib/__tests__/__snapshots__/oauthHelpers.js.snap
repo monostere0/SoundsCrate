@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`app/lib/oauthHelpers getAppHeaders should return the app headers 1`] = `
 Object {
   "Accept": "application/vnd.discogs.v2.plaintext+json",
@@ -7,8 +9,8 @@ Object {
 }
 `;
 
-exports[`app/lib/oauthHelpers getAuthorizationHeaders should return the authorization headers if the param is supplied 1`] = `"OAuth oauth_consumer_key=\"bar\", oauth_nonce=\"616335b9.5440ec\", oauth_token=foo, oauth_signature=\"foo%26baz\", oauth_signature_method=\"PLAINTEXT\", oauth_timestamp=\"13234523452\", oauth_verifier=\"bar\""`;
+exports[`app/lib/oauthHelpers getAuthorizationHeaders should return the authorization headers if the param is supplied 1`] = `"OAuth oauth_consumer_key=\\"bar\\", oauth_nonce=\\"616335b9.5440ec\\", oauth_token=foo, oauth_signature=\\"foo%26baz\\", oauth_signature_method=\\"PLAINTEXT\\", oauth_timestamp=\\"13234523452\\", oauth_verifier=\\"bar\\""`;
 
-exports[`app/lib/oauthHelpers getInitialHeaders should return the initial call headers 1`] = `"OAuth oauth_consumer_key=\"bar\", oauth_nonce=\"616335b9.5440ec\", oauth_signature=\"foo&\", oauth_signature_method=\"PLAINTEXT\", oauth_timestamp=\"13234523452\", oauth_callback=\"http://callback-url\""`;
+exports[`app/lib/oauthHelpers getInitialHeaders should return the initial call headers 1`] = `"OAuth oauth_consumer_key=\\"bar\\", oauth_nonce=\\"616335b9.5440ec\\", oauth_signature=\\"foo&\\", oauth_signature_method=\\"PLAINTEXT\\", oauth_timestamp=\\"13234523452\\", oauth_callback=\\"http://callback-url\\""`;
 
-exports[`app/lib/oauthHelpers getSecureHeaders should return the app oAuth headers 1`] = `"OAuth oauth_consumer_key=\"bar\", oauth_nonce=\"616335b9.5440ec\", oauth_signature=\"foo%26oAuthSecretValue\", oauth_signature_method=\"PLAINTEXT\", oauth_timestamp=\"13234523452\", oauth_token=\"oAuthTokenValue\""`;
+exports[`app/lib/oauthHelpers getSecureHeaders should return the app oAuth headers 1`] = `"OAuth oauth_consumer_key=\\"bar\\", oauth_nonce=\\"616335b9.5440ec\\", oauth_signature=\\"foo%26oAuthSecretValue\\", oauth_signature_method=\\"PLAINTEXT\\", oauth_timestamp=\\"13234523452\\", oauth_token=\\"oAuthTokenValue\\""`;

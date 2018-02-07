@@ -6,7 +6,7 @@ import FolderButton from './FolderButton'
 
 type Props = { folder: Folder };
 
-export default class FolderButtonContainer extends Component {
+export default class FolderButtonContainer extends Component<Props, *> {
   props: Props;
   state: { thumbnails: Array<string> } = { thumbnails: [] };
 
@@ -14,7 +14,7 @@ export default class FolderButtonContainer extends Component {
     this.getFolderThumbs();
   }
 
-  render(): React.Element<*> {
+  render(): React$Node {
     const { folder } = this.props;
     const { thumbnails } = this.state;
     return (

@@ -12,13 +12,14 @@ import type { Folder } from '../discogsTypes';
 
 type Props = {
   folder: Folder,
-  thumbnails: Array<string>
+  thumbnails: Array<string>,
+  navigation: any
 };
 
-class FolderButton extends Component {
+class FolderButton extends Component<Props, *> {
   props: Props;
 
-  render(): React.Element<*> {
+  render(): React$Node {
     const { folder, thumbnails } = this.props;
     return (
       <View style={styles.folderContainer}>

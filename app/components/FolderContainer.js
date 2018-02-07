@@ -10,7 +10,7 @@ type State = {
   isLazyLoading: boolean
 };
 
-export default class FolderContainer extends Component {
+export default class FolderContainer extends Component<*, State> {
   state: State = {
     records: [],
     currentPage: 1,
@@ -22,7 +22,7 @@ export default class FolderContainer extends Component {
     this.getCollectionFolder(this.state.currentPage);
   }
 
-  render(): React.Element<*> {
+  render(): React$Node {
     const { records, totalPages, isLazyLoading } = this.state;
     return (
       <Folder

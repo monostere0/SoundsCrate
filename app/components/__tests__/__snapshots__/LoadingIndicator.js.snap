@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`app/components/LoadingIndicator should render 1`] = `
 <View
   style={
@@ -9,18 +11,28 @@ exports[`app/components/LoadingIndicator should render 1`] = `
       },
       undefined,
     ]
-  }>
+  }
+>
   <Image
-    source={1}
+    source={
+      Object {
+        "testUri": "../../../app/components/assets/player.png",
+      }
+    }
     style={
       Object {
         "height": 100,
         "position": "absolute",
         "width": 100,
       }
-    } />
+    }
+  />
   <Image
-    source={1}
+    source={
+      Object {
+        "testUri": "../../../app/components/assets/record.png",
+      }
+    }
     style={
       Array [
         Object {
@@ -45,9 +57,14 @@ exports[`app/components/LoadingIndicator should render 1`] = `
           ],
         },
       ]
-    } />
+    }
+  />
   <Image
-    source={1}
+    source={
+      Object {
+        "testUri": "../../../app/components/assets/needle.png",
+      }
+    }
     style={
       Array [
         Object {
@@ -97,6 +114,7 @@ exports[`app/components/LoadingIndicator should render 1`] = `
           ],
         },
       ]
-    } />
+    }
+  />
 </View>
 `;

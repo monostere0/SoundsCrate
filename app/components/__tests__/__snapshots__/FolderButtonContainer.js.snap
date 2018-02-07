@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`app/components/FolderButtonContainer should render and call discogs.getThumbsInFolder 1`] = `
 <FolderButton
   folder={
@@ -7,5 +9,6 @@ exports[`app/components/FolderButtonContainer should render and call discogs.get
       "name": "foo",
     }
   }
-  thumbnails={undefined} />
+  thumbnails={undefined}
+/>
 `;

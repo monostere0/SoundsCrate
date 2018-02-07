@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`app/components/Folders should render a list of TouchableHighlights if there is data 1`] = `
 <RCTScrollView
   contentContainerStyle={
@@ -9,7 +11,8 @@ exports[`app/components/Folders should render a list of TouchableHighlights if t
     Object {
       "flex": 1,
     }
-  }>
+  }
+>
   <View>
     <FolderButtonContainer
       folder={
@@ -17,14 +20,16 @@ exports[`app/components/Folders should render a list of TouchableHighlights if t
           "id": 1,
           "name": "foo",
         }
-      } />
+      }
+    />
     <FolderButtonContainer
       folder={
         Object {
           "id": 2,
           "name": "bar",
         }
-      } />
+      }
+    />
   </View>
 </RCTScrollView>
 `;
@@ -40,7 +45,8 @@ exports[`app/components/Folders should render a loader if there is no data 1`] =
     Object {
       "flex": 1,
     }
-  }>
+  }
+>
   <View>
     <LoadingIndicator />
   </View>

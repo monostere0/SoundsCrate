@@ -25,10 +25,10 @@ type Props = {
 
 type State = {
   recordShown: boolean,
-  yPosition: number
+  yPosition?: number
 };
 
-export default class Folder extends Component {
+export default class Folder extends Component<Props, State> {
   static defaultProps = { onScrollEnd: () => {} };
   state: State = {
     recordShown: false,
@@ -43,7 +43,7 @@ export default class Folder extends Component {
     this.debouncedOnScrollEnd = _.debounce(this.props.onScrollEnd, 100);
   }
 
-  render(): React.Element<*> {
+  render(): React$Node {
     const { records, isLoading } = this.props;
     const height = records.length * RECORD_HEIGHT_SPACE;
     const areRecordsAvailable = Boolean(records.length);
@@ -53,7 +53,7 @@ export default class Folder extends Component {
         {areRecordsAvailable && <ScrollView
           style={[styles.crate, { height }]}
           onScroll={(event: any) => this.onScroll(event)}
-          ref={(ref: React.Element<*>) => this.scrollViewRef = ref}
+          ref={(ref: React$Node) => this.scrollViewRef = ref}
           scrollEventThrottle={2}
           contentContainerStyle={[styles.container, { height }]}>
           {records.map((image: string, i: number) => {
@@ -63,7 +63,7 @@ export default class Folder extends Component {
               onShow={() => this.onRecordShow(top)}
               onHide={() => this.onRecordHide()}
               canBeShown={!this.state.recordShown}
-              listYPosition={this.state.yPosition}
+              listYPosition={this.state.yPosition || 0}
               maxYPosition={height}
               cover={image}
               isLast={i === records.length - 1}
@@ -89,7 +89,7 @@ export default class Folder extends Component {
 
   onRecordShow(topValue: number) {
     const { yPosition } = this.state;
-    const scrollTopDiff = (topValue - RECORD_SCROLL_DIFF_THRESHOLD) - yPosition;
+    const scrollTopDiff = (topValue - RECORD_SCROLL_DIFF_THRESHOLD) - (yPosition || 0);
     if (scrollTopDiff < 0) {
       setTimeout(() => {
         this.scrollViewRef.scrollTo({ y: yPosition + scrollTopDiff, animated: true });

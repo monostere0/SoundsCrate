@@ -15,7 +15,7 @@ const ANIMATION_DURATION = 500;
 type Props = { isOverlay?: boolean };
 
 export default class LoadingIndicator extends Component<Props, *> {
-  needleAnimation: Animated.Value = new Animated.Value(0);
+  needleAnimation = new Animated.Value(0);
 
   componentDidMount() {
     this.animateNeedle();
@@ -42,7 +42,9 @@ export default class LoadingIndicator extends Component<Props, *> {
   }
 
   animateNeedle() {
+    // $FlowFixMe: Use Animated.Value until type CompositeAnimation is being exposed from React Native
     this._getNeedleAnimation(30).start(({ finished }: any) => {
+      // $FlowFixMe: Use Animated.Value until type CompositeAnimation is being exposed from React Native
       finished && this._getNeedleAnimation(0).start(({ finished }: any) => {
         finished && this.animateNeedle();
       });
@@ -56,6 +58,7 @@ export default class LoadingIndicator extends Component<Props, *> {
     });
   }
 
+  // $FlowFixMe: Use Animated.Value until type CompositeAnimation is being exposed from React Native
   _getNeedleAnimation(toValue: number): Animated.Value {
     return Animated.spring(
       this.needleAnimation,

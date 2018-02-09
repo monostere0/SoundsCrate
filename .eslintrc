@@ -1,7 +1,8 @@
 {
   "parser": "babel-eslint",
   "ecmaFeatures": {
-    "jsx": true
+    "jsx": true,
+    "modules": true
   },
   "plugins": [
     "flowtype",
@@ -38,7 +39,9 @@
     "react-native/no-inline-styles": 2,
     "react-native/no-color-literals": 0,
     "no-unused-vars": [2, {"vars": "all", "args": "none"}],
-    "react/jsx-uses-vars": ["error"]
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2
   },
   "settings": {
     "flowtype": {

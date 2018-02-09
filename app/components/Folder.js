@@ -51,7 +51,7 @@ export default class Folder extends Component<Props, State> {
       <View style={styles.root}>
         {!areRecordsAvailable && <LoadingIndicator/>}
         {areRecordsAvailable && <ScrollView
-          style={[styles.crate, { height }]}
+          style={{ height }}
           onScroll={(event: any) => this.onScroll(event)}
           ref={(ref: React$Node) => this.scrollViewRef = ref}
           scrollEventThrottle={2}

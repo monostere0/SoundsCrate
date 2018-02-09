@@ -25,17 +25,17 @@ jest.mock('../conf', () => ({
 describe('app/discogs', () => {
 
   afterEach(() => {
-    secureFetch.mockReset();
-    secureFetch.mockClear();
+    (secureFetch: any).mockReset();
+    (secureFetch: any).mockClear();
   });
 
   it('getCollectionFolder()', async () => {
-    secureFetch.mockImplementationOnce(() => Promise.resolve({
+    (secureFetch: any).mockImplementationOnce(() => Promise.resolve({
       json: () => ({
         username: 'foobar',
       }),
     }));
-    secureFetch.mockImplementationOnce(() => Promise.resolve({
+    (secureFetch: any).mockImplementationOnce(() => Promise.resolve({
       json: () => ({
         releases: [{
           basic_information: {
@@ -46,18 +46,18 @@ describe('app/discogs', () => {
       }),
     }));
 
-    const folders = await getCollectionFolder(1, 1);
-    expect(secureFetch.mock.calls).toMatchSnapshot();
+    const folders = await getCollectionFolder('1', 1);
+    expect((secureFetch: any).mock.calls).toMatchSnapshot();
     expect(folders).toMatchSnapshot();
   });
 
   it('getCollectionFolders()', async () => {
-    secureFetch.mockImplementationOnce(() => Promise.resolve({
+    (secureFetch: any).mockImplementationOnce(() => Promise.resolve({
       json: () => ({
         username: 'foobar',
       }),
     }));
-    secureFetch.mockImplementationOnce(() => Promise.resolve({
+    (secureFetch: any).mockImplementationOnce(() => Promise.resolve({
       json: () => ({
         folders: [{
           id: 1,
@@ -71,18 +71,18 @@ describe('app/discogs', () => {
     }));
 
     const folders = await getCollectionFolders();
-    expect(secureFetch.mock.calls).toMatchSnapshot();
+    expect((secureFetch: any).mock.calls).toMatchSnapshot();
     expect(folders).toMatchSnapshot();
 
   });
 
   it('getThumbsInFolder()', async () => {
-    secureFetch.mockImplementationOnce(() => Promise.resolve({
+    (secureFetch: any).mockImplementationOnce(() => Promise.resolve({
       json: () => ({
         username: 'foobar',
       }),
     }));
-    secureFetch.mockImplementationOnce(() => Promise.resolve({
+    (secureFetch: any).mockImplementationOnce(() => Promise.resolve({
       json: () => ({
         releases: [{
           basic_information: {
@@ -93,8 +93,8 @@ describe('app/discogs', () => {
       }),
     }));
 
-    const thumbs = await getThumbsInFolder(1);
-    expect(secureFetch.mock.calls).toMatchSnapshot();
+    const thumbs = await getThumbsInFolder('1');
+    expect((secureFetch: any).mock.calls).toMatchSnapshot();
     expect(thumbs).toMatchSnapshot();
   });
 });

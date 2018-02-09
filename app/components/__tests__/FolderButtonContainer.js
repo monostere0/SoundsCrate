@@ -15,7 +15,7 @@ describe('app/components/FolderButtonContainer', () => {
     const tree = await renderer.create(
       <FolderButtonContainer
         folder={{
-          id: 1,
+          id: '1',
           count: 2,
           name: 'foo'
         }} />);

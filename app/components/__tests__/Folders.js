@@ -17,7 +17,7 @@ describe('app/components/Folders', () => {
     expect(tree).toMatchSnapshot();
   });
   it('should render a list of TouchableHighlights if there is data', () => {
-    const tree = renderer.create(<Folders folders={[{id: 1, name: 'foo'}, {id: 2, name: 'bar'}]} />);
+    const tree = renderer.create(<Folders folders={[{id: '1', name: 'foo', count: 1}, {id: '2', name: 'bar', count: 1}]} />);
     expect(tree).toMatchSnapshot();
   });
 });

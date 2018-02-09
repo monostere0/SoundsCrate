@@ -89,10 +89,12 @@ export default class Record extends Component<Props, State> {
   }
 
   _animateRotateX(value: number) {
+    // $FlowFixMe: Use Animated.Value until type CompositeAnimation is being exposed from React Native
     this._getXAnimation(value).start();
   }
 
   _getYAnimation(toValue: number): Animated.Value {
+    // $FlowFixMe: Use Animated.Value until type CompositeAnimation is being exposed from React Native
     return Animated.spring(
       this.animatedTranslateY,
       {
@@ -104,6 +106,7 @@ export default class Record extends Component<Props, State> {
   }
 
   _getXAnimation(toValue: number): Animated.Value {
+    // $FlowFixMe: Use Animated.Value until type CompositeAnimation is being exposed from React Native
     return Animated.spring(
       this.animatedRotateX,
       {
@@ -115,6 +118,7 @@ export default class Record extends Component<Props, State> {
   }
 
   _getPerspectiveAnimation(toValue: number): Animated.Value {
+    // $FlowFixMe: Use Animated.Value until type CompositeAnimation is being exposed from React Native
     return Animated.spring(
       this.animatedPerspective,
       {
@@ -132,6 +136,7 @@ export default class Record extends Component<Props, State> {
     const perspectiveValue = Math.min(multipledTop, PERSPECTIVE_ANIMATED_VALUE);
     this.setState({ isShown: true });
     Animated.parallel([
+      // $FlowFixMe: Use Animated.Value until type CompositeAnimation is being exposed from React Native
       this._getYAnimation(Y_ANIMATED_VALUE / (this.props.isLast ? 2 : 1)),
       this._getPerspectiveAnimation(perspectiveValue),
     ]).start(() => callback && callback());
@@ -140,7 +145,9 @@ export default class Record extends Component<Props, State> {
   _hide() {
     this.props.onHide();
     Animated.parallel([
+      // $FlowFixMe: Use Animated.Value until type CompositeAnimation is being exposed from React Native
       this._getYAnimation(Y_DEFAULT_VALUE),
+      // $FlowFixMe: Use Animated.Value until type CompositeAnimation is being exposed from React Native
       this._getPerspectiveAnimation(PERSPECTIVE_DEFAULT_VALUE),
     ]).start(() => {
       this.setState({ isShown: false });
